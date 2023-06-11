@@ -17,7 +17,7 @@ Thanks! :)
 .. toctree::
    :maxdepth: 2
    :hidden:
-   :caption: PY4E
+   :caption: py4e
 
    PY4E/pythonForEverybody
    PY4E/variables
@@ -39,7 +39,22 @@ Thanks! :)
 .. toctree::
    :maxdepth: 2
    :hidden:
-   :caption: DJ4E
+   :caption: dj4e
 
    DJ4E/work_in_progress
-   
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: codewars
+
+   Codewars/Codewars
+   Codewars/Python8kyu
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: hackerrank
+
+   HackerRank/HackerRank
+   HackerRank/PythonIntro
