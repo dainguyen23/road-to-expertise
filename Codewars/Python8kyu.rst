@@ -16,6 +16,8 @@ Multiply
 **Categories:** ``debugging`` ``fundamentals``
 
 **Problem:** This code does not execute properly. Try to figure out why.
+
+**Starting Code:**
 ::
     
     def multiply(a, b):
@@ -41,27 +43,9 @@ Multiply
 
 **Output:**
 
-.. code-block:: text
+.. image:: img/multiply.JPG
 
-    Time: 513ms Passed: 1 Failed: 0
-    
-    Test Results:
-        
-        Fixed Tests
-            
-            Basic Test Cases
-                
-                Test Passed
-            
-            Completed in 0.01ms
-        
-        Completed in 0.04ms
-
-    ------------------------------------
-    You have passed all of the tests! :)
-    ------------------------------------
-
-**Note:** The ``multiply`` function was called but was not defined to ``return`` a value. So I re-defined the function.
+**Notes:** The ``multiply`` function was called but was not defined to ``return`` a value. So I re-defined the function.
 
 |
 
