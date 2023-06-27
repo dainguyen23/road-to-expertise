@@ -3,17 +3,33 @@ Variables, Expressions and Statements
 
 |
 
-For this section, I'll be going over exercises 2 to 5.
+
+For this section, I'll be going over exercises 2.2 to 2.5.
 
 .. contents:: Contents
     :local:
+
+.. note:: 
+
+    **Something to be familiar with:**
+
+    Python reserves the following **35 keywords**. This means we can't use them as variable names.
+    ::
+
+        and     continue  finally  is        raise
+        as      def       for      lambda    return
+        assert  del       from     None      True
+        async   elif      global   nonlocal  try
+        await   else      if       not       while
+        break   except    import   or        with
+        class   False     in       pass      yield
 
 |
 
 ----
 
-Exercise 2
-----------
+Exercise 2.2
+------------
 
 **Prompt:** Write a program that uses the ``input`` method to prompt a user for their name and then welcomes them.
 
@@ -48,8 +64,8 @@ I then called the ``print()`` method, called the variable ``name`` and concatena
 
 ----
 
-Exercise 3
-----------
+Exercise 2.3
+------------
 
 **Prompt:** Write a program to prompt the user for hours and rate per hour to compute gross pay.
 
@@ -82,9 +98,9 @@ Exercise 3
 
 Based off the expected output, I named my variables accordingly to increase the  readability of my code.
 
-The variable ``hours`` ultilizes the ``input()`` method to ask and take in user input of hours worked. And the variable ``rate`` ultilizes the same method to ask and take in user input of the pay rate.
+The variable ``hours`` utilizes the ``input()`` method to ask and take in user input of hours worked. And the variable ``rate`` utilizes the same method to ask and take in user input of the pay rate.
 
-The variable ``pay`` ultilizes the method ``float()`` to explicitly convert ``hours`` and ``rate`` from type **String** to type **Float**. In doing this, the ``pay`` variable can perform multiplication on ``hours`` and ``rate`` and retains the decimal place values.
+The variable ``pay`` utilizes the method ``float()`` to explicitly convert ``hours`` and ``rate`` from type **String** to type **Float**. In doing this, the ``pay`` variable can perform multiplication on ``hours`` and ``rate`` and retains the decimal place values.
 
 I then had to convert ``pay`` back into a **String** type when calling it inside the ``print()`` method so that I could concatenate it to the string *"Pay: "*.
 
@@ -92,8 +108,8 @@ I then had to convert ``pay`` back into a **String** type when calling it inside
 
 ----
 
-Exercise 4
-----------
+Exercise 2.4
+------------
 
 **Prompt:** Assume that we execute the following assignment statements:
 ::
@@ -144,7 +160,7 @@ For each of the following expressions, write the value of the expression and the
 
 **Reasoning behind my code:**
 
-By ultilizing the Python interpreter, I got the following:
+By utilizing the Python interpreter, I got the following:
 
 #. ``width // 2`` equals ``8`` and it is type ``int``.
 #. ``width / 2.0`` equals ``8.5`` and it is type ``float``.
@@ -167,46 +183,47 @@ I utilized the ``type()`` method here so that the program can output the *type c
 
 ----
 
-Exercise 5
-----------
+Exercise 2.5
+------------
 
 **Prompt:** Write a program which prompts the user for a Celsius temperature, convert the temperature to Fahrenheit, and print out the converted temperature.
 
 **Expected output:** There was none available for this exercise.
 
-**My output:**
+**My outputs:**
 ::
 
-    #Example 1
-    Enter the temperature in Celcius: 0
-    Temperature entered in Celcius: 0°C
+    Enter the temperature in Celsius: 0
+    Temperature entered in Celsius: 0°C
     Temperature converted to Fahrenheit: 32°F
 
-    #Example 2
-    Enter the temperature in Celcius: 100
-    Temperature entered in Celcius: 100°C
+::
+
+    Enter the temperature in Celsius: 100
+    Temperature entered in Celsius: 100°C
     Temperature converted to Fahrenheit: 212°F
 
-    #Example 3
-    Enter the temperature in Celcius: 73
-    Temperature entered in Celcius: 73°C
+::
+    
+    Enter the temperature in Celsius: 73
+    Temperature entered in Celsius: 73°C
     Temperature converted to Fahrenheit: 163°F
 
 **My code:**
 ::
 
-    celcius = input("Enter the temperature in Celcius: ")
+    celsius = input("Enter the temperature in Celsius: ")
 
-    fahrenheit = (int(celcius) * 9//5) + 32
+    fahrenheit = (int(celsius) * 9//5) + 32
 
-    print("Temperature entered in Celcius: " + str(celcius) + "\N{DEGREE SIGN}C")
+    print("Temperature entered in Celsius: " + str(celsius) + "\N{DEGREE SIGN}C")
     print("Temperature converted to Fahrenheit: " + str(fahrenheit) + "\N{DEGREE SIGN}F")
 
 **Reasoning behind my code:**
 
-The variable ``celcius`` asks for the user input. The variable ``fahrenheit`` converts ``celcius`` from type **String** to type **Int** and performs the temperature conversion formula.
+The variable ``celsius`` asks for the user input. The variable ``fahrenheit`` converts ``celsius`` from type **String** to type **Int** and performs the temperature conversion formula.
 
-For better readability, I used two seperate ``print()`` statements. One for the user input, in degrees Celcius; the other for the converted output, in degrees Fahrenheit.
+For better readability, I used two separate ``print()`` statements. One for the user input, in degrees Celsius; the other for the converted output, in degrees Fahrenheit.
 
 .. note:: 
 

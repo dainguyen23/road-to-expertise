@@ -1,3 +1,7 @@
 _build
 .vscode
 temporaryFile.py
+mbox-short.txt
+mbox.txt
+romeo.txt
+words.txt
