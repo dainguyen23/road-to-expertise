@@ -12,7 +12,7 @@ For this section, I'll be going over exercises 8.1, 8.4 to 8.6.
 
     **Somethings to be familiar with:**
 
-    Like a string, a **list** is a sequence of values. In a string, the values are *characters*; in a list, they can be *any type*. The values in list are called **elements** or sometimes **items**.
+    Like a string, a **list** is a sequence of values. However, **lists are mutable**. In a string, the values are *characters*; in a list, they can be *any type*. The values in list are called **elements** or sometimes **items**.
 
     There are several ways to create a new list; the simplest is to enclose the elements in square brackets (``[`` and ``]``):
     ::

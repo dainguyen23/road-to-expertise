@@ -31,10 +31,11 @@ Thanks! :)
    PY4E/tuples
    PY4E/regex
    PY4E/networkProgramming
-   PY4E/usingWebServices
-   PY4E/objectOrientedProgramming
+   PY4E/usingWebServices 
    PY4E/databases
    PY4E/dataVisualization
+
+.. PY4E/objectOrientedProgramming
 
 .. toctree::
    :maxdepth: 2

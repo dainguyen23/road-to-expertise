@@ -12,7 +12,7 @@ For this section, I'll be going over exercises 9.1 to 9.5.
 
     **Somethings to be familiar with:**
 
-    A **dictionary** is like a *list*, but more general. In a list, the index positions have to be integers; in a dictionary, the indices can be (almost) any type.
+    **Dictionaries are mutable**. A **dictionary** is like a *list*, but more general. In a list, the index positions have to be integers; in a dictionary, the indices can be (almost) any type.
 
     You can think of a dictionary as a mapping between a set of indices (which are called **keys**) and a set of **values**. *Each key maps to a value*. The association of a key and a value is called a **key-value pair** or sometimes an **item**.
     ::
@@ -49,7 +49,7 @@ For this section, I'll be going over exercises 9.1 to 9.5.
 Exercise 9.1
 ------------
 
-**prompt:** Download a copy of the file https://www.py4e.com/code3/words.txt
+**Prompt:** Download a copy of the file https://www.py4e.com/code3/words.txt
 
 Write a program that reads the words in **words.txt** and stores them as keys in a dictionary. **It doesn't matter what the values are**. Then you can use the ``in`` operator as a fast way to check whether a string is in the dictionary.
 
@@ -147,7 +147,7 @@ Write a program that reads the words in **words.txt** and stores them as keys in
 Exercise 9.2
 ------------
 
-**prompt:** Write a program that categorizes each mail message by which day of the week the commit was done. To do this look for lines that start with “From”, then look for the third word and keep a running count of each of the days of the week. At the end of the program print out the contents of your dictionary (order does not matter).
+**Prompt:** Write a program that categorizes each mail message by which day of the week the commit was done. To do this look for lines that start with “From”, then look for the third word and keep a running count of each of the days of the week. At the end of the program print out the contents of your dictionary (order does not matter).
 
 **Expected output:**
 
@@ -225,7 +225,7 @@ Sample Execution:
 Exercise 9.3
 ------------
 
-**prompt:** Write a program to read through a mail log, build a histogram using a dictionary to count how many messages have come from each email address, and print the dictionary.
+**Prompt:** Write a program to read through a mail log, build a histogram using a dictionary to count how many messages have come from each email address, and print the dictionary.
 
 **Expected output:**
 
@@ -285,7 +285,7 @@ Exercise 9.3
 Exercise 9.4
 ------------
 
-**prompt:** Add code to the above program to figure out who has the most messages in the file. After all the data has been read and the dictionary has been created, look through the dictionary using a maximum loop (see Chapter 5: Maximum and minimum loops) to find who has the most messages and print how many messages the person has.
+**Prompt:** Add code to the above program to figure out who has the most messages in the file. After all the data has been read and the dictionary has been created, look through the dictionary using a maximum loop (see Chapter 5: Maximum and minimum loops) to find who has the most messages and print how many messages the person has.
 
 **Expected outputs:**
 
@@ -355,7 +355,7 @@ Exercise 9.4
 Exercise 9.5
 ------------
 
-**prompt:** Write a program where it records the domain name (instead of the address) where the message was sent from instead of who the mail came from (i.e., the whole email address). At the end of the program, print out the contents of your dictionary.
+**Prompt:** Write a program where it records the domain name (instead of the address) where the message was sent from instead of who the mail came from (i.e., the whole email address). At the end of the program, print out the contents of your dictionary.
 
 **Expected output:**
 
