@@ -12,3 +12,4 @@ googleapi.py
 __pycache__/googleapi.cpython-39.pyc
 py4e.db
 py4e.sqbpro
+singleTable.sqlite3
