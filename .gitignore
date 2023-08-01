@@ -14,3 +14,6 @@ py4e.db
 py4e.sqbpro
 singleTable.sqlite3
 countDomains.sqlite
+Library.xml
+initSSH.sh
+multiTableTracks.sqlite

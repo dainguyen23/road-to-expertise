@@ -261,3 +261,105 @@ Autograder: Counting Email in a Database
     Domain: iupui.edu
     Count: 536
     Time elapsed: 0.44 second(s)
+
+|
+
+----
+
+multi-table database - tracks
+-----------------------------
+
+::
+
+    import xml.etree.ElementTree as ET
+    import sqlite3
+
+    conn = sqlite3.connect("multiTableTracks.sqlite")
+    cur = conn.cursor()
+
+    cur.executescript('''
+        DROP TABLE IF EXISTS Artist;
+        DROP TABLE IF EXISTS Genre;
+        DROP TABLE IF EXISTS Album;
+        DROP TABLE IF EXISTS Track;
+
+        CREATE TABLE Artist (
+            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+            name TEXT UNIQUE
+        );
+
+        CREATE TABLE Genre (
+            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+            name TEXT UNIQUE
+        );
+
+        CREATE TABLE Album (
+            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+            title TEXT UNIQUE,
+            artist_id INTEGER
+        );
+
+        CREATE TABLE Track (
+            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+            title TEXT UNIQUE,
+            length INTEGER,
+            rating INTEGER,
+            count INTEGER,
+            genre_id INTEGER,
+            album_id INTEGER
+        );
+    ''')
+
+    fname = input("Enter file name: ")
+    if len(fname) < 1: fname = "Library.xml"
+
+    def lookup(diction, key):
+        found = False
+        for child in diction:
+            if found : return child.text
+            if child.tag == 'key' and child.text == key:
+                found = True
+        return None
+
+    readxml = ET.parse(fname)
+    content = readxml.findall('dict/dict/dict')
+    print("Dictionary count:", len(content))
+
+    iteration = 0
+    for entry in content:
+        track = lookup(entry, 'Track ID')
+        name = lookup(entry, 'Name')
+        artist = lookup(entry, 'Artist')
+        album = lookup(entry, 'Album')
+        genre = lookup(entry, 'Genre')
+        count = lookup(entry, 'Play Count')
+        rating = lookup(entry, 'Rating')
+        length = lookup(entry, 'Total Time')
+
+        if track is None or name is None or artist is None or album is None or genre is None:
+            continue
+
+        cur.execute('INSERT OR IGNORE INTO Artist (name) VALUES (?)', (artist, ))
+        cur.execute('SELECT id FROM Artist WHERE name = ?', (artist, ))
+        artist_id = cur.fetchone()[0]
+
+        cur.execute('INSERT OR IGNORE INTO Genre (name) VALUES (?)', (genre, ))
+        cur.execute('SELECT id FROM Genre WHERE name = ?', (genre, ))
+        genre_id = cur.fetchone()[0]
+
+        cur.execute('INSERT OR IGNORE INTO Album (title, artist_id) VALUES (?, ?)', (album, artist_id))
+        cur.execute('SELECT id FROM Album WHERE title = ?', (album, ))
+        album_id = cur.fetchone()[0]
+
+        cur.execute('INSERT OR REPLACE INTO Track (title, length, rating, count, genre_id, album_id) VALUES (?, ?, ?, ?, ?, ?)', (name, length, rating, count, genre_id, album_id) )
+
+        iteration += 1
+        if iteration == 20:
+            conn.commit()
+            iteration = 0
+
+        print(name, artist, album, genre, count, rating, length)
+
+    print("Dictionary count:", len(content))
+    conn.close()
+
