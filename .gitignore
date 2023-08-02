@@ -17,3 +17,5 @@ countDomains.sqlite
 Library.xml
 initSSH.sh
 multiTableTracks.sqlite
+roster_data.json
+rosterdb.sqlite3
