@@ -3,8 +3,6 @@ Databases
 
 |
 
-For this section, I'll be going over autograder exercises, plus application 1 and 2.
-
 .. contents:: Contents
     :local:
 
@@ -16,13 +14,36 @@ For this section, I'll be going over autograder exercises, plus application 1 an
 
 ----
 
-Autograder: Single Table SQL
+A Simple Single Table Design
 ----------------------------
+
+**Process:**
+
+The application will:
+
+- Create a table if it does not already exist
+- Clear out the database and fill it with new entries
+
+**Testing methodology:**
+
+The program will run the following query and produce a corresponding output:
+
+*Query & output:*
+
+.. code-block:: sql
+
+    SELECT hex(name || age) AS X FROM Ages ORDER BY X
+
+*Hint:*
+
+.. code-block:: text
+
+    Output starts with 436
 
 **My Code:**
 ::
 
-    # required module
+    # required library
     import sqlite3
 
     # set connection to specific database file or generate one
@@ -57,36 +78,81 @@ Autograder: Single Table SQL
     # concatenate values of each row, from name to age, then
     # convert them to hexadecimal values and
     # present them in ascending order
+    print('''
+    Running command...
+
+    SELECT hex(name || age) AS X FROM Ages ORDER BY X
+
+    Output:
+    ''')
     cur.execute('SELECT hex(name || age) AS X FROM Ages ORDER BY X')
     print(cur.fetchone()[0])
 
     # close connection to database file
     conn.close()
 
+**My output:**
+::
+
+    $ python temporaryFile.py 
+
+    Running command...
+
+    SELECT hex(name || age) AS X FROM Ages ORDER BY X
+
+    Output:
+
+    43617472696E3136
+
+**Notes:**
+
+Some SQL commands used are strict syntaxes allowed within an SQLite database, such as the ``SELECT`` statement used in this program. I'm pointing this out since I'll only be working with the ``sqlite3`` library built within Python.
+
 |
 
 ----
 
-Approaches to Counting Email in a Database
-------------------------------------------
+Approaches to Time Efficiency on Database Design
+------------------------------------------------
 
 **Process:**
 
+This application will:
+
+- Read the mailbox data, ``mbox.txt``
+- Count the number of email messages per organization (i.e. domain name of the email address) using a database to maintain the counts
+- Be created with different versions to see which approach performs with the best time efficiency
+
+Link to reference code: https://www.py4e.com/code3/emaildb.py
+
+Link to ``mbox.txt``: https://www.py4e.com/code3/mbox.txt
+
+
 **Testing methodology:**
+
+Each version of the program will run and find the domain name of the organization with the highest email count.
+
+*Hint:*
+
+.. code-block:: text
+
+    The top organizational count is 536
 
 **My Code:**
 
 **Version 1: limiting string comparison in code**
 ::
 
-    # required module
+    # required library and module
     import sqlite3
     from timeit import default_timer as timer
 
+    # start timer and connection to database
     start = timer()
     conn = sqlite3.connect('countDomains.sqlite')
     cur = conn.cursor()
 
+    # drop current table and create new one for testing
     cur.executescript('''
         DROP TABLE IF EXISTS Counts;
 
@@ -97,10 +163,13 @@ Approaches to Counting Email in a Database
 
     ''')
 
+    # open connection to mbox.txt
     fname = 'mbox.txt'
     print(f'Opening file: {fname}')
     fhand = open(fname)
 
+    # looking for specific lines and grab the domain names
+    # then store them in the database
     for line in fhand:
         if not line.startswith('From: '): continue
 
@@ -127,11 +196,12 @@ Approaches to Counting Email in a Database
 
     print(f"\nTop Organizational Count\nDomain: {domain}\nCount: {count}")
 
+    # close connection to database and stop timer
     conn.close()
     end = timer()
     print("Time elapsed:", round(end-start, 2), "second(s)")
 
-**output:**
+**Output:**
 ::
 
     $ python temporaryFile.py 
@@ -145,7 +215,6 @@ Approaches to Counting Email in a Database
 **Version 2: using string comparisons**
 ::
 
-    # required module
     import sqlite3
     from timeit import default_timer as timer
 
@@ -195,7 +264,7 @@ Approaches to Counting Email in a Database
     end = timer()
     print("Time elapsed:", round(end-start, 2), "second(s)")
 
-**output:**
+**Output:**
 ::
 
     $ python temporaryFile.py 
@@ -209,7 +278,6 @@ Approaches to Counting Email in a Database
 **Version 3: using dictionary to handle unique row inserts**
 ::
 
-    # required module
     import sqlite3
     from timeit import default_timer as timer
 
@@ -255,7 +323,7 @@ Approaches to Counting Email in a Database
     end = timer()
     print("Time elapsed:", round(end-start, 2), "second(s)")
 
-**output:**
+**Output:**
 ::
 
     $ python temporaryFile.py 
@@ -267,6 +335,8 @@ Approaches to Counting Email in a Database
     Time elapsed: 0.44 second(s)
 
 **Notes:**
+
+Out of the 3 test versions, it seems searching through the database and limiting comparing string literals resulted in the best time efficiency. Of course, keep in mind that this is a small sample pool. But it's an interesting result, nonetheless.
 
 |
 
@@ -785,6 +855,14 @@ The program will run the following query and retrieve the corresponding output:
     Shake Your Foundations      AC/DC      Who Made Who      Rock
     --------------------------------------------------------------------------------
 
+**Notes:**
+
+Alternatively, once the program runs and all data are stored, we can query the database using the dedicated SQLite Browser for a more clean presentation of data.
+
+.. image:: img/music_track_query.PNG
+    :width: 800
+    :alt: Image shows the SQL query used in the program being run on the database browser.
+
 |
 
 ----
@@ -834,9 +912,11 @@ The program will run the following queries and retrieve the corresponding output
     ON User.id = Member.user_id AND Member.course_id = Course.id
     ORDER BY X LIMIT 1;
 
-::
-    
-    XYZZY41626265736933363430
+*Hint:*
+
+.. code-block:: text
+
+    Output starts with XYZZY416...
 
 **My code:**
 ::
