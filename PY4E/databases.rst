@@ -119,13 +119,13 @@ Approaches to Time Efficiency on Database Design
 
 This application will:
 
-- Read the mailbox data, ``mbox.txt``
-- Count the number of email messages per organization (i.e. domain name of the email address) using a database to maintain the counts
-- Be created with different versions to see which approach performs with the best time efficiency
+- Read the mailbox data in ``mbox.txt`` file.
+- Count the number of email messages per organization (i.e. domain name of the email address) using a database to maintain the counts.
+- Be created with different versions to see which approach performs with the best time efficiency.
 
-Link to reference code: https://www.py4e.com/code3/emaildb.py
+Click link to open `reference code <https://www.py4e.com/code3/emaildb.py>`__.
 
-Link to ``mbox.txt``: https://www.py4e.com/code3/mbox.txt
+Click link to open `mbox.txt <https://www.py4e.com/code3/mbox.txt>`__.
 
 
 **Testing methodology:**
@@ -349,10 +349,10 @@ Library Management - iTunes Edition
 
 This application will:
 
-- Read an iTunes export file in XML
-- Produce a properly normalized database
+- Read an iTunes export file in XML.
+- Produce a properly normalized database.
 
-Link to reference code and ``Library.xml`` file: https://www.py4e.com/code3/tracks.zip
+Click link to download zip file containing `reference code and Library.xml file <https://www.py4e.com/code3/tracks.zip>`_.
 
 **Testing methodology:**
 
@@ -874,18 +874,18 @@ Many Students in Many Courses
 
 This application will:
 
-- Read roster data in JSON format
-- Parse the JSON file
-- Produce an SQLite database that contains a User, Course, and Member table
-- Populate the tables from the data file
+- Read roster data in JSON format.
+- Parse the JSON file.
+- Produce an SQLite database that contains a User, Course, and Member table.
+- Populate the tables from the data file.
 
-Link to reference code: https://www.py4e.com/code3/roster/roster.py
+Click link to open `reference code <https://www.py4e.com/code3/roster/roster.py>`_.
 
-Link to ``roster_data.json``: https://www.py4e.com/tools/sql-intro/roster_data.php?PHPSESSID=10a2f411ec9495fde4e2d2ead3e9585e
+Click link to download `roster_data.json <https://www.py4e.com/tools/sql-intro/roster_data.php?PHPSESSID=10a2f411ec9495fde4e2d2ead3e9585e>`_.
 
 **Testing methodology:**
 
-The program will run the following queries and retrieve the corresponding outputs:
+The program will run the following queries and retrieve corresponding outputs:
 
 *Query & output:*
 

@@ -42,4 +42,4 @@ Thanks! :)
    :hidden:
    :caption: DJ4E
 
-   DJ4E/temp
+   DJ4E/work_in_progress
