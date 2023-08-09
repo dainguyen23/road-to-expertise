@@ -5,11 +5,11 @@
 
 Hello! My name is Dai Nguyen
 ============================================
-I'm a student and practitioner in subjects regarding Computer Science, Networking and Cybersecurity.
+A Software Engineer, with a *B.S. in Computer Science*, currently targeting *Python*, *Django* framework and relational databases (*SQLite*, *PostgreSQL*, etc). I also have other interests regarding *Cybersecurity* and *Networking* and have achieved *CompTIA Cybersecurity Analyst (CySA+)* certification, so far.
 
-In here, you'll find various projects that I've been working on. I hope, in creating this space, that I can share my experiences along with the potential in bringing interests to like-minded individuals!
+This is but the beginning! I'm looking to expand my knowledge and document my journey on becoming an expert in my fields of interest, right here! This site will serve as my portfolio and my very own encyclopedia!
 
-You can navigate to specific sections using the menu bar on your left!
+You can navigate to specific sections using the menu bar on your left! Feel free to take a look!
 
 Thanks! :)
 
@@ -43,3 +43,4 @@ Thanks! :)
    :caption: DJ4E
 
    DJ4E/work_in_progress
+   
