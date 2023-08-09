@@ -10,6 +10,37 @@ Databases
 
     **Somethings to be familiar with:**
 
+    In technical descriptions of relational databases the concepts of **table**, **row**, and **column** are more *formally* referred to as **relation**, **tuple**, and **attribute**, respectively.
+
+    The acronym **CRUD** refers to the major operations which are implemented by *databases*. Each letter in the acronym can be mapped to a standard *Structured Query Language (SQL)* statement.
+
+    .. list-table::
+        :widths: 10 10
+        :header-rows: 1
+
+        * - CRUD
+          - SQL
+
+        * - Create
+          - INSERT
+
+        * - Read
+          - SELECT
+
+        * - Update
+          - UPDATE
+
+        * - Delete
+          - DELETE
+
+    **Normalization** refers to designing a data model so that no data is replicated. We store each item of data at one place in the database and reference it elsewhere using a foreign key.
+
+    **Primary key** is a numeric key assigned to each row that is used to refer to one row in a table from another table. Often the database is configured to automatically assign primary keys as rows are inserted.
+
+    **Foreign key** is a numeric key that points to the primary key of a row in another table. Foreign keys establish relationships between rows stored in different tables.
+
+    **Logical key** is a key that the “outside world” uses to look up a particular row. For example in a table of user accounts, a person's email address might be a good candidate as the logical key for the user's data.
+
 |
 
 ----
@@ -352,7 +383,7 @@ This application will:
 - Read an iTunes export file in XML.
 - Produce a properly normalized database.
 
-Click link to download zip file containing `reference code and Library.xml file <https://www.py4e.com/code3/tracks.zip>`_.
+Click link to download zip file containing `reference code and Library.xml file <https://www.py4e.com/code3/tracks.zip>`__.
 
 **Testing methodology:**
 
@@ -879,9 +910,9 @@ This application will:
 - Produce an SQLite database that contains a User, Course, and Member table.
 - Populate the tables from the data file.
 
-Click link to open `reference code <https://www.py4e.com/code3/roster/roster.py>`_.
+Click link to open `reference code <https://www.py4e.com/code3/roster/roster.py>`__.
 
-Click link to download `roster_data.json <https://www.py4e.com/tools/sql-intro/roster_data.php?PHPSESSID=10a2f411ec9495fde4e2d2ead3e9585e>`_.
+Click link to download `roster_data.json <https://www.py4e.com/tools/sql-intro/roster_data.php?PHPSESSID=10a2f411ec9495fde4e2d2ead3e9585e>`__.
 
 **Testing methodology:**
 
@@ -1052,7 +1083,8 @@ The program will run the following queries and retrieve corresponding outputs:
     conn.close()
 
 **My output:**
-::
+
+.. code-block:: text
 
     $ python temporaryFile.py 
     Enter file name: roster_data.json
