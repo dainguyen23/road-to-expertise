@@ -3,9 +3,6 @@ Variables, Expressions and Statements
 
 |
 
-
-For this section, I'll be going over exercises 2.2 to 2.5.
-
 .. contents:: Contents
     :local:
 
@@ -24,12 +21,48 @@ For this section, I'll be going over exercises 2.2 to 2.5.
         break   except    import   or        with
         class   False     in       pass      yield
 
+    **Assignment** - A statement that assigns a value to a variable. 
+    
+    **Concatenate** - To join two operands end to end. 
+    
+    **Comment** - Information in a program that is meant for other programmers (or anyone reading the source code) and has no effect on the execution of the program. 
+    
+    **Evaluate** - To simplify an expression by performing the operations in order to yield a single value. 
+    
+    **Expression** - A combination of variables, operators, and values that represents a single result value. 
+    
+    **Floating Point** - A type that represents numbers with fractional parts. 
+    
+    **Integer** - A type that represents whole numbers. 
+    
+    **Keyword** - A reserved word that is used by the compiler to parse a program; you cannot use keywords like ``if``, ``def``, and ``while`` as variable names. 
+    
+    **Mnemonic** - A memory aid. We often give variables mnemonic names to help us remember what is stored in the variable. 
+    
+    **Modulus Operator** - An operator, denoted with a percent sign (``%``), that works on integers and yields the remainder when one number is divided by another. 
+    
+    **Operand** - One of the values on which an operator operates. 
+    
+    **Operator** - A special symbol that represents a simple computation like addition, multiplication, or string concatenation. 
+    
+    **Rules of Precedence** - The set of rules governing the order in which expressions involving multiple operators and operands are evaluated. 
+    
+    **Statement** - A section of code that represents a command or action. So far, the statements we have seen are assignments and print expression statement. 
+    
+    **String** - A type that represents sequences of characters. 
+    
+    **Type** - A category of values. The types we have seen so far are integers (type ``int``), floating-point numbers (type ``float``), and strings (type ``str``). 
+    
+    **Value** - One of the basic units of data, like a number or string, that a program manipulates. 
+    
+    **Variable** - A name that refers to a value.
+
 |
 
 ----
 
-Exercise 2.2
-------------
+Reading User Input
+------------------
 
 **Prompt:** Write a program that uses the ``input`` method to prompt a user for their name and then welcomes them.
 
@@ -64,8 +97,8 @@ I then called the ``print()`` method, called the variable ``name`` and concatena
 
 ----
 
-Exercise 2.3
-------------
+Operations from User Inputs
+---------------------------
 
 **Prompt:** Write a program to prompt the user for hours and rate per hour to compute gross pay.
 
@@ -108,8 +141,8 @@ I then had to convert ``pay`` back into a **String** type when calling it inside
 
 ----
 
-Exercise 2.4
-------------
+Storing Results
+---------------
 
 **Prompt:** Assume that we execute the following assignment statements:
 ::
@@ -183,8 +216,8 @@ I utilized the ``type()`` method here so that the program can output the *type c
 
 ----
 
-Exercise 2.5
-------------
+Temperature Converter
+---------------------
 
 **Prompt:** Write a program which prompts the user for a Celsius temperature, convert the temperature to Fahrenheit, and print out the converted temperature.
 

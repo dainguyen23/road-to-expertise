@@ -32,7 +32,7 @@ Thanks! :)
    PY4E/regex
    PY4E/networkProgramming
    PY4E/usingWebServices
-   PY4E/OOP
+   PY4E/oop
    PY4E/databases
    PY4E/dataVisualization
 
