@@ -7,7 +7,7 @@ Hello! My name is Dai Nguyen
 ============================================
 A Software Engineer, with a *B.S. in Computer Science*, currently targeting *Python*, *Django* framework and relational databases (*SQLite*, *PostgreSQL*, etc). I also have other interests regarding *Cybersecurity* and *Networking* and have achieved *CompTIA Cybersecurity Analyst (CySA+)* certification, so far.
 
-This is but the beginning! I'm looking to expand my knowledge and document my journey on becoming an expert in my fields of interest, right here! This site will serve as my portfolio and my very own encyclopedia!
+This is but the beginning! I'm looking to expand my knowledge and document my journey on becoming an expert in my fields of interest, right here! This site will serve as a *sort of* portfolio and my very own encyclopedia!
 
 You can navigate to specific sections using the menu bar on your left! Feel free to take a look!
 
