@@ -3,9 +3,6 @@ Conditional Execution
 
 |
 
-
-For this section, I'll be going over exercises 3.1 to 3.3.
-
 .. contents:: Contents
     :local:
 
@@ -30,12 +27,38 @@ For this section, I'll be going over exercises 3.1 to 3.3.
 
     ``try`` and ``except`` feature in Python as an “insurance policy” on a sequence of statements.
 
+    **Body** - The sequence of statements within a compound statement. 
+    
+    **Boolean Expression** - An expression whose value is either ``True`` or ``False``.
+    
+    **Branch** - One of the alternative sequences of statements in a conditional statement.
+    
+    **Chained Conditional** - A conditional statement with a series of alternative branches.
+    
+    **Comparison Operator** - One of the operators that compares its operands: ``==``, ``!=``, ``>``, ``<``, ``>=``, and ``<=``.
+    
+    **Conditional Statement** - A statement that controls the flow of execution depending on some condition.
+    
+    **Condition** - The boolean expression in a conditional statement that determines which branch is executed.
+    
+    **Compound Statement** - A statement that consists of a header and a body. The header ends with a colon (:). The body is indented relative to the header.
+    
+    **Guardian Pattern** - Where we construct a logical expression with additional comparisons to take advantage of the short-circuit behavior.
+    
+    **Logical Operator** - One of the operators that combines boolean expressions: ``and``, ``or``, and ``not``.
+    
+    **Nested Conditional** - A conditional statement that appears in one of the branches of another conditional statement.
+    
+    **Traceback** - A list of the functions that are executing, printed when an exception occurs. 
+    
+    **Short Circuit** - When Python is part-way through evaluating a logical expression and stops the evaluation because Python knows the final value for the expression without needing to evaluate the rest of the expression.
+
 |
 
 ----
 
-Exercise 3.1
--------------
+If/Else Clause
+--------------
 
 **Prompt:** Write a program to prompt the user for hours and rate per hour using input to compute gross pay. Pay the hourly rate for the hours up to 40 and 1.5 times the hourly rate for all hours worked above 40 hours. Use 45 hours and a rate of 10.50 per hour to test the program (the pay should be 498.75). You should use **input** to read a string and **float()** to convert the string to a number. Do not worry about error checking the user input - assume the user types numbers properly.
 
@@ -83,8 +106,8 @@ The code will output ``pay`` regardless of which clause is active. Notice that `
 
 ----
 
-Exercise 3.2
--------------
+Try/Except Clause
+-----------------
 
 **Prompt:** Rewrite your pay program using ``try`` and ``except`` so that your program handles non-numeric input gracefully by printing a message and exiting the program. The following shows two executions of the program:
 
@@ -154,8 +177,8 @@ In this assignment, however, I made use of the **try/except structure** and add 
 
 ----
 
-Exercise 3.3
--------------
+Simple Grades Calculator
+------------------------
 
 **Prompt:** Write a program to prompt for a score between 0.0 and 1.0. If the score is out of range, print an error message. If the score is between 0.0 and 1.0, print a grade using the following table:
 ::
@@ -253,4 +276,4 @@ Exercise 3.3
 
 Building on top of previous exercises, I combined **try/except** and **if/else** clauses for this assignment. I also utilized the ``elif`` clause to create multiple checks within my conditional structure and the ``and`` keyword to set correct parameters in each conditional statement.
 
-The code is very straightforward and should follow the grading structure requested by the prompt. 
+The code is very straightforward and should follow the grading structure requested by the prompt.
