@@ -3,8 +3,6 @@ Strings
 
 |
 
-For this section, I'll be going over exercises 6.1, 6.3 to 6.5.
-
 .. contents:: Contents
     :local:
 
@@ -33,12 +31,44 @@ For this section, I'll be going over exercises 6.1, 6.3 to 6.5.
 
     ``in`` is a boolean operator that takes two strings and returns ``True`` if the first appears as a substring in the second.
 
+    **Counter** - A variable used to count something, usually initialized to zero and then incremented. 
+
+    **Empty String** - A string with no characters and length 0, represented by two quotation marks. 
+
+    **Format Operator** - An operator, ``%``, that takes a format string and a tuple and generates a string that includes the elements of the tuple formatted as specified by the format string. 
+
+    **Format Sequence** - A sequence of characters in a format string, like ``%d``, that specifies how a value should be formatted.
+
+    **Format String** - A string, used with the format operator, that contains format sequences. 
+
+    **Flag** - A boolean variable used to indicate whether a condition is true or false. 
+
+    **Invocation** - A statement that calls a method. 
+
+    **Immutable** - The property of a sequence whose items cannot be assigned. 
+
+    **Index** - An integer value used to select an item in a sequence, such as a character in a string. 
+
+    **Item** - One of the values in a sequence. 
+
+    **Method** - A function that is associated with an object and called using dot notation. 
+
+    **Object** - Something a variable can refer to. For now, you can use “object” and “value” interchangeably. 
+
+    **Search** - A pattern of traversal that stops when it finds what it is looking for. 
+
+    **Sequence** - An ordered set; that is, a set of values where each value is identified by an integer index. 
+
+    **Slice** - A part of a string specified by a range of indices. 
+
+    **Traverse** - To iterate through the items in a sequence, performing a similar operation on each.
+
 |
 
 ----
 
-Exercise 6.1
-------------
+Reversed String
+---------------
 
 **Prompt:** Write a ``while`` loop that starts at the last character in the string and works its way backwards to the first character in the string, printing each letter on a separate line, except backwards.
 
@@ -115,8 +145,8 @@ I took some liberty with this assignment since there weren't any **expected outp
 
 ----
 
-Exercise 6.3
-------------
+Counting Letters
+----------------
 
 The following program counts the number of times the letter “a” appears in a string:
 ::
@@ -183,8 +213,8 @@ Using the example code given in this assignment, I moved it into its own functio
 
 ----
 
-Exercise 6.4
-------------
+Counting Letters II
+-------------------
 
 **Prompt:** There is a string method called ``count`` that is similar to the function in the previous exercise. Read the documentation of this method at:
 
@@ -192,7 +222,7 @@ https://docs.python.org/library/stdtypes.html#string-methods
 
 Write an **invocation** that counts the number of times the letter **'a'** occurs in **“banana”**. A method call is called an *invocation*.
 
-**Expected output:** None available but it should have the same results as exercise 6.3.
+**Expected output:** None available.
 
 **My output:**
 
@@ -212,21 +242,21 @@ Write an **invocation** that counts the number of times the letter **'a'** occur
 
 **Reasoning behind my code:**
 
-For this assignment, I got rid of the custom made count function and utilized the built-in ``count()`` method instead, as per requested. Making an invocation requires the programmer to append the method behind the variable, similar to the third line in **my code:** ``word.count(letter)``. The output is the same as in exercise 6.3. 
+For this assignment, I got rid of the custom made count function and utilized the built-in ``count()`` method instead, as per requested. Making an invocation requires the programmer to append the method behind the variable, similar to the third line in **my code:** ``word.count(letter)``. 
 
 |
 
 ----
 
-Exercise 6.5
-------------
+Slicing Strings
+---------------
 
 **Prompt:** Take the following Python code that stores a string:
 ::
     
     str = "X-DSPAM-Confidence:    0.8475"
 
-Write code using ``find()`` and **string slicing** (see section 6.10) to extract the number at the end of the line below. *Convert the extracted value to a floating point number and print it out*.
+Write code using ``find()`` and **string slicing** to extract the number at the end of the line below. *Convert the extracted value to a floating point number and print it out*.
 
 **Expected output:**
 ::

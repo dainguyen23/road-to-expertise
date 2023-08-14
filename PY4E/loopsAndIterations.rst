@@ -3,8 +3,6 @@ Loops and Iterations
 
 |
 
-For this section, I'll be going over exercises 5.1 & 5.2.
-
 .. contents:: Contents
     :local:
 
@@ -24,12 +22,26 @@ For this section, I'll be going over exercises 5.1 & 5.2.
 
     ``continue`` can be used to skip the current iteration of code and move onto the next iteration.
 
+    **Accumulator** - A variable used in a loop to add up or accumulate a result. 
+
+    **Counter** - A variable used in a loop to count the number of times something happened. We initialize a counter to zero and then increment the counter each time we want to “count” something. 
+
+    **Decrement** - An update that decreases the value of a variable. 
+
+    **Initialize** - An assignment that gives an initial value to a variable that will be updated. 
+
+    **Increment** - An update that increases the value of a variable (often by one). 
+
+    **Infinite Loop** - A loop in which the terminating condition is never satisfied or for which there is no terminating condition. 
+
+    **Iteration** - Repeated execution of a set of statements using either a function that calls itself or a loop.
+
 |
 
 ----
 
-Exercise 5.1
-------------
+Infinite Loop with a Condition
+------------------------------
 
 **Prompt:** Write a program which repeatedly reads numbers until the user enters **“done”**.
 
@@ -117,8 +129,8 @@ Finally, with the issue fixed, I added a blank line with ``\n`` before printing 
 
 ----
 
-Exercise 5.2
-------------
+Continuous Prompt
+-----------------
 
 **Prompt:** Write a program that repeatedly prompts a user for integer numbers until the user enters 'done'. Once 'done' is entered, print out the largest and smallest of the numbers. If the user enters anything other than a valid number catch it with a try/except and put out an appropriate message and ignore the number. Enter 7, 2, bob, 10, and 4 and match the output below. 
 
@@ -197,4 +209,3 @@ I put the *max* and *min* calculation in their own separate *function* to make t
 ``largest`` and ``smallest`` have originally been initialized with the **integer** ``0``. But an issue arises when I realized the program will always keep ``0`` as the ``smallest`` value. So I decided to switch the **0's** to ``None`` as the value. This means that a simple conditional statement such as ``if newval > oldval:`` would have to be extended to cover the *first iteration* of the ``while`` loop. As you can see in **my code**, the new conditional statement is now ``if oldval is None or newval > oldval:``
 
 The rest of the code is pretty straightforward!
-
