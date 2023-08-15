@@ -3,8 +3,6 @@ Lists
 
 |
 
-For this section, I'll be going over exercises 8.1, 8.4 to 8.6.
-
 .. contents:: Contents
     :local:
 
@@ -22,12 +20,35 @@ For this section, I'll be going over exercises 8.1, 8.4 to 8.6.
 
     If an index has a negative value, it counts backward from the end of the list.
 
+
+    **Aliasing** - A circumstance where two or more variables refer to the same object. 
+    
+    **Delimiter** - A character or string used to indicate where a string should be split. 
+    
+    **Element** - One of the values in a list (or other sequence); also called items. 
+    
+    **Equivalent** - Having the same value. 
+    
+    **Index** - An integer value that indicates an element in a list. 
+    
+    **Identical** - Being the same object (which implies equivalence). 
+    
+    **List** - A sequence of values. 
+    
+    **List Traversal** - The sequential accessing of each element in a list. 
+    
+    **Nested List** - A list that is an element of another list. 
+    
+    **Object** - Something a variable can refer to. An object has a type and a value. 
+    
+    **Reference** - The association between a variable and its value.
+
 |
 
 ----
 
-Exercise 8.1
-------------
+List Comparisons
+----------------
 
 **Prompt:** Write a function called ``chop`` that takes a list and **modifies it**, *removing the first and last elements*, and **returns** ``None``. Then write a function called ``middle`` that takes a list and **returns a new list** that contains all but the *first* and *last* elements.
 
@@ -75,10 +96,10 @@ Exercise 8.1
 
 ----
 
-Exercise 8.4
-------------
+Find Unique Words in File
+-------------------------
 
-**Prompt:** Find all unique words in a file.
+**Prompt:** 
 
 Shakespeare used over 20,000 words in his works. But how would you determine that? How would you produce the list of all the words that Shakespeare used? Would you download all his work, read it and track all unique words by hand?
 
@@ -139,10 +160,10 @@ To get started, download a copy of the file at https://www.py4e.com/code3/romeo.
 
 ----
 
-Exercise 8.5
-------------
+Minimalist Email Client
+-----------------------
 
-**Prompt:** Minimalist Email Client.
+**Prompt:** 
 
 MBOX (mail box) is a popular file format to store and share a collection of emails. This was used by early email servers and desktop apps. Without getting into too many details, MBOX is a text file, which stores emails consecutively. Emails are separated by a special line which starts with ``From`` (notice the space). Importantly, lines starting with ``From:`` (notice the colon) describes the email itself and does not act as a separator. Imagine you wrote a minimalist email app, that lists the email of the senders in the user's Inbox and counts the number of emails.
 
@@ -239,8 +260,8 @@ You will parse the From line and print out the second word for each From line, t
 
 ----
 
-Exercise 8.6
-------------
+Min-Maxing
+----------
 
 **Prompt:** Rewrite the program that prompts the user for a list of numbers and prints out the maximum and minimum of the numbers at the end when the user enters “done”. Write the program to store the numbers the user enters in a list and use the ``max()`` and ``min()`` functions to compute the maximum and minimum numbers after the loop completes.
 

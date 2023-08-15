@@ -3,8 +3,6 @@ Files
 
 |
 
-For this section, I'll be going over exercises 7.1 to 7.3.
-
 .. contents:: Contents
     :local:
 
@@ -24,12 +22,22 @@ For this section, I'll be going over exercises 7.1 to 7.3.
         File "<stdin>", line 1, in <module>
         FileNotFoundError: [Errno 2] No such file or directory: 'stuff.txt'
 
+    **Catch** - To prevent an exception from terminating a program using the ``try`` and ``except`` statements. 
+    
+    **Newline** - A special character used in files and strings to indicate the end of a line. 
+    
+    **Pythonic** - A technique that works elegantly in Python. “Using try and except is the Pythonic way to recover from missing files”. 
+    
+    **Quality Assurance** - A person or team focused on insuring the overall quality of a software product. QA is often involved in testing a product and identifying problems before the product is released. 
+    
+    **Text File** - A sequence of characters stored in permanent storage like a hard drive.
+
 |
 
 ----
 
-Exercise 7.1
-------------
+Reading Files
+-------------
 
 **Prompt:** Write a program to read through a file and print the contents of the file (line by line) all in upper case.
 
@@ -87,8 +95,8 @@ Notice I have ``count`` and ``break`` in the code. This is just so I can get the
 
 ----
 
-Exercise 7.2
-------------
+Finding Numbers in Files
+------------------------
 
 **Prompt:** Write a program to prompt for a file name, and then read through the file and look for lines of the form:
 ::
@@ -166,8 +174,8 @@ You can get mbox.txt here: https://www.py4e.com/code3/mbox.txt
 
 ----
 
-Exercise 7.3
-------------
+Easter Eggs in Program
+----------------------
 
 **Prompt:** Sometimes when programmers get bored or want to have a bit of fun, so they add a harmless *Easter Egg* to their program.
 
