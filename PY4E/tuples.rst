@@ -3,8 +3,6 @@ Tuples
 
 |
 
-For this section, I'll be going over exercises 10.1 to 10.3.
-
 .. contents:: Contents
     :local:
 
@@ -80,12 +78,32 @@ For this section, I'll be going over exercises 10.1 to 10.3.
     
     Both sides of this statement are tuples, but the left side is a tuple of variables; the right side is a tuple of expressions. Each value on the right side is assigned to its respective variable on the left side. All the expressions on the right side are evaluated before any of the assignments. The number of variables on the left and the number of values on the right **must be the same**.
 
+    **Comparable** - A type where one value can be checked to see if it is greater than, less than, or equal to another value of the same type. Types which are comparable can be put in a list and sorted. 
+    
+    **Data Structure** - A collection of related values, often organized in lists, dictionaries, tuples, etc. 
+    
+    **DSU** - Abbreviation of “decorate-sort-undecorate”, a pattern that involves building a list of tuples, sorting, and extracting part of the result. 
+    
+    **Gather** - The operation of assembling a variable-length argument tuple. 
+    
+    **Hashable** - A type that has a hash function. Immutable types like integers, floats, and strings are hashable; mutable types like lists and dictionaries are not. 
+    
+    **Scatter** - The operation of treating a sequence as a list of arguments. 
+    
+    **Shape (of a data structure)** - A summary of the type, size, and composition of a data structure. 
+    
+    **Singleton** - A list (or other sequence) with a single element. 
+    
+    **Tuple** - An immutable sequence of elements. 
+    
+    **Tuple Assignment** - An assignment with a sequence on the right side and a tuple of variables on the left. The right side is evaluated and then its elements are assigned to the variables on the left.
+
 |
 
 ----
 
-Exercise 10.1
--------------
+Sorting Emails by Commits
+-------------------------
 
 **Prompt:** Revise a previous program as follows:
 
@@ -184,8 +202,8 @@ Read and parse the “From” lines and pull out the addresses from the line. Co
 
 ----
 
-Exercise 10.2
--------------
+Sorting Messages by Time
+------------------------
 
 **Prompt:** Write a program that counts the distribution of the **hour** of the day for each of the messages. You can pull the hour from the “From” line by finding the time string and then splitting that string into parts using the colon character. Once you have accumulated the counts for each hour, print out the counts, one per line, sorted by hour as shown below.
 
@@ -255,18 +273,17 @@ Exercise 10.2
 
 **Reasoning behind my code:**
 
-- Most of the code is borrowed from exercise 10.1. I'll be going over what was changed for this assignment.
 - After finding the line of interest, the program replaces all ``:``'s with whitespace characters (in this case, just blank spaces). Doing this will break the time data into separate elements once the line splits (one for each hour, minute and second).
 - Splitting the line causes ``line`` to have more elements than usual. Focusing on the element of interest (hour), I used ``line[5]`` when adding to ``diction``. Doing this will store *hour* as **key** and its number of occurrences (in this case, it represents the message count) within the file as **value**.
-- In order to sort the hours in ascending order, I first need to convert the items in ``diction`` to a list of tuples. I can make this relatively quickly by utilizing *list comprehension*. Refer to exercise 10.1 if you'd like an explanation on this technique.
+- In order to sort the hours in ascending order, I first need to convert the items in ``diction`` to a list of tuples. I can make this relatively quickly by utilizing *list comprehension*.
 - Once the list is sorted, I constructed a ``for`` loop to output the content of the list.
 
 |
 
 ----
 
-Exercise 10.3
--------------
+Frequency Analysis Application
+------------------------------
 
 **Prompt:** Write a program that reads a file and prints the letters in *decreasing order* of frequency. Your program should convert all the input to *lower case* and *only count the letters a-z*. Your program *should not count spaces, digits, punctuation, or anything other than the letters a-z*. Find text samples from several different languages and see how letter frequency varies between languages. Compare your results with the tables at https://wikipedia.org/wiki/Letter_frequencies.
 

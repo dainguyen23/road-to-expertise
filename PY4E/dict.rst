@@ -3,8 +3,6 @@ Dictionaries
 
 |
 
-For this section, I'll be going over exercises 9.1 to 9.5.
-
 .. contents:: Contents
     :local:
 
@@ -42,12 +40,34 @@ For this section, I'll be going over exercises 9.1 to 9.5.
     
     For dictionaries, Python uses an algorithm called a *hash table* that has a remarkable property: the ``in`` operator takes about the same amount of time no matter how many items there are in a dictionary.
 
+    **Dictionary** - A mapping from a set of keys to their corresponding values. 
+    
+    **Hashtable** - The algorithm used to implement Python dictionaries. 
+    
+    **Hash Function** - A function used by a hashtable to compute the location for a key. 
+    
+    **Histogram** - A set of counters. 
+    
+    **Implementation** - A way of performing a computation. 
+    
+    **Item** - Another name for a key-value pair. 
+    
+    **Key** - An object that appears in a dictionary as the first part of a key-value pair. 
+    
+    **Key-value Pair** - The representation of the mapping from a key to a value. 
+    
+    **Lookup** - A dictionary operation that takes a key and finds the corresponding value. 
+    
+    **Nested Loops** - When there are one or more loops “inside” of another loop. The inner loop runs to completion each time the outer loop runs once. 
+    
+    **Value** - An object that appears in a dictionary as the second part of a key-value pair. This is more specific than our previous use of the word “value”.
+
 |
 
 ----
 
-Exercise 9.1
-------------
+A Simple Word Histogram
+-----------------------
 
 **Prompt:** Download a copy of the file https://www.py4e.com/code3/words.txt
 
@@ -144,8 +164,8 @@ Write a program that reads the words in **words.txt** and stores them as keys in
 
 ----
 
-Exercise 9.2
-------------
+Messages Categorized by Day
+---------------------------
 
 **Prompt:** Write a program that categorizes each mail message by which day of the week the commit was done. To do this look for lines that start with “From”, then look for the third word and keep a running count of each of the days of the week. At the end of the program print out the contents of your dictionary (order does not matter).
 
@@ -222,8 +242,8 @@ Sample Execution:
 
 ----
 
-Exercise 9.3
-------------
+A Simple Email Histogram
+------------------------
 
 **Prompt:** Write a program to read through a mail log, build a histogram using a dictionary to count how many messages have come from each email address, and print the dictionary.
 
@@ -272,7 +292,7 @@ Exercise 9.3
 
 **Reasoning behind my code:**
 
-- Pretty much the same code as **Exercise 9.2**.
+- Pretty much the same code as the previous assignment.
 - Only change is:
   ::
 
@@ -282,8 +302,8 @@ Exercise 9.3
 
 ----
 
-Exercise 9.4
-------------
+A Simple Email Histogram Extended
+---------------------------------
 
 **Prompt:** Add code to the above program to figure out who has the most messages in the file. After all the data has been read and the dictionary has been created, look through the dictionary using a maximum loop (see Chapter 5: Maximum and minimum loops) to find who has the most messages and print how many messages the person has.
 
@@ -341,7 +361,7 @@ Exercise 9.4
 
 **Reasoning behind my code:**
 
-- Majority of the code is borrowed from exercise 9.3. I'll only be going over the new code for this part.
+- Majority of the code is borrowed from the previous exercise. I'll only be going over the new code for this part.
 - ``maxKey`` is initialized with ``None`` and will be used to store the max **key** of ``diction``.
 - ``maxVal`` is initialized with ``0`` and will be used to store the max **value** of ``diction``.
 - Utilizing ``diction.item()``, I can run a ``for`` loop through ``diction`` while checking for both the **key** and **value** in each iteration.
@@ -352,8 +372,8 @@ Exercise 9.4
 
 ----
 
-Exercise 9.5
-------------
+Yet Another Email Histogram
+---------------------------
 
 **Prompt:** Write a program where it records the domain name (instead of the address) where the message was sent from instead of who the mail came from (i.e., the whole email address). At the end of the program, print out the contents of your dictionary.
 
@@ -398,7 +418,6 @@ Exercise 9.5
 
 **Reasoning behind my code:**
 
-- The code is, again, borrowed from exercise 9.3 so I'll be going over what was changed and/or added for this assignment.
 - Before stripping whitespace characters and splitting ``line``, I made use of ``translate`` and ``maketrans`` methods to break the domain names from the email addresses, as per requested by the **prompt**.
 - With the two methods working together, I can manipulate which character I can make edits to. And since all email addresses have the ``@`` character in common, I went ahead and replaced it with an *empty space* character. This is done so that when I invoke the ``split`` method, it will break the *username part* from the *domain name part*.
 - The outcome resulted in an extra *key-value pair*, so what was ``line[1]`` before is now changed to ``line[2]``. This will point to the correct item, in the dictionary, that we want to ``print`` out.
