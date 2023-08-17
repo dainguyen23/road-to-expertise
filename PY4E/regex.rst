@@ -3,8 +3,6 @@ Regular Expressions
 
 |
 
-For this section, I'll be going over exercises 11.1 to 11.4.
-
 .. contents:: Contents
     :local:
 
@@ -14,7 +12,7 @@ For this section, I'll be going over exercises 11.1 to 11.4.
 
     The module ``re`` must be imported into your program before you can use regular expression.
 
-    **Special characters and character sequences to reference:**
+    **Regex Special characters and character sequences:**
     
     .. list-table:: 
         :widths: 3 10
@@ -63,7 +61,7 @@ For this section, I'll be going over exercises 11.1 to 11.4.
         * - ``[^XYZ]``
           - Matches a single character not in the listed set  
 
-    Bonus for Unix/Linux users: there is a command-line program built into Unix called ``grep`` (Generalized Regular Expression Parser) that does pretty much the same as the ``search()`` method. So if you have a Macintosh or Linux system, you can try the following commands in your command-line window.
+    **Bonus for Unix/Linux users:** there is a command-line program built into Unix called ``grep`` (Generalized Regular Expression Parser) that does pretty much the same as the ``search()`` method. So if you have a Macintosh or Linux system, you can try the following commands in your command-line window.
     ::
 
         $ grep '^From:' mbox-short.txt
@@ -72,12 +70,23 @@ For this section, I'll be going over exercises 11.1 to 11.4.
         From: zqian@umich.edu
         From: rjlowe@iupui.edu
 
+    
+    **Brittle Code** - Code that works when the input data is in a particular format but is prone to breakage if there is some deviation from the correct format. We call this “brittle code” because it is easily broken. 
+    
+    **Greedy Matching** - The notion that the + and * characters in a regular expression expand outward to match the largest possible string. 
+    
+    **grep** - A command available in most Unix systems that searches through text files looking for lines that match regular expressions. The command name stands for “Generalized Regular Expression Parser”. 
+    
+    **Regular Expression** - A language for expressing more complex search strings. A regular expression may contain special characters that indicate that a search only matches at the beginning or end of a line or many other similar capabilities. 
+    
+    **Wild Card** - A special character that matches any character. In regular expressions the wild-card character is the period.
+
 |
 
 ----
 
-Exercise 11.1
--------------
+Simple Generalized Regex Parser
+-------------------------------
 
 **Prompt:**  Write a simple program to simulate the operation of the ``grep`` command on Unix. Ask the user to enter a regular expression and count the number of lines that matched the regular expression.
 
@@ -155,8 +164,8 @@ Exercise 11.1
 
 ----
 
-Exercise 11.2
--------------
+Number Extractor via Regex
+--------------------------
 
 **Prompt:** Write a program to look for lines of the form:
 ::
@@ -230,10 +239,10 @@ Extract the number from each of the lines using a regular expression and the ``f
 
 ----
 
-Exercise 11.3
--------------
+Finding Numbers in a Haystack
+-----------------------------
 
-**Prompt:** Finding Numbers in a Haystack.
+**Prompt:**
 
 In this assignment you will read through and parse a file with text and numbers. You will extract all the numbers in the file and compute the sum of the numbers. 
 
@@ -323,8 +332,8 @@ The sum is **27486**. The numbers can appear anywhere in the line. There can be 
 
 ----
 
-Exercise 11.4
--------------
+A Convoluted Solution with List Comprehension
+---------------------------------------------
 
 **Prompt:** Bonus problem!
 
@@ -355,5 +364,5 @@ There are a number of different ways to approach this problem. While we don't re
 
 **Reasoning behind my code:**
 
-- This assignment combines what we know about the ``read()`` method and **list comprehension** and created an unnecessarily compressed shorthand solution to exercise 10.3. It shows the power of the Python language. But realistically, it causes more confusion than it helps.
+- This assignment combines what we know about the ``read()`` method and **list comprehension** and created an unnecessarily compressed shorthand solution for it. It shows the power of the Python language. But realistically, it causes more confusion than it helps.
 - The single line of ``print`` code combined all the steps, from reading the file to searching using regex and finally printing out the sum of integers found. All in one fell swoop!
