@@ -3,8 +3,6 @@ Network Programming
 
 |
 
-For this section, I'll be going over exercises 12.1 to 12.5, plus the 3 autograder assignments.
-
 .. contents:: Contents
     :local:
 
@@ -16,12 +14,12 @@ For this section, I'll be going over exercises 12.1 to 12.5, plus the 3 autograd
 
     There are many documents that describe different network protocols. We'll be working with the Hypertext Transfer Protocol so refer to this document for detailed descriptions: https://www.w3.org/Protocols/rfc2616/rfc2616.txt
 
-    To request a document from a web server, we make a connection, for example, to a server called ``www.pr4e.org server`` on port ``80``, and then send a line of the form
+    To request a document from a web server, we make a connection, for example, to a server called ``www.pr4e.org server`` on port ``80``, and then send a line of the form:
     ::
 
         GET http://data.pr4e.org/romeo.txt HTTP/1.0
 
-    where the *second parameter* is the **web page** we are requesting, and then we also send a blank line. The *web server* will respond with some **header** information about the document and a **blank line** followed by the document **content**.
+    Where the *second parameter* is the **web page** we are requesting, and then we also send a blank line. The *web server* will respond with some **header** information about the document and a **blank line** followed by the document **content**.
     
     .. code-block:: text
 
@@ -58,71 +56,41 @@ For this section, I'll be going over exercises 12.1 to 12.5, plus the 3 autograd
 
     One of the common uses of the ``urllib`` capability in Python is to *scrape* the web. **Web scraping** is when we write a program that pretends to be a web browser and retrieves pages, then examines the data in those pages looking for patterns.
 
+    
+    **BeautifulSoup** - A Python library for parsing HTML documents and extracting data from HTML documents that compensates for most of the imperfections in the HTML that browsers generally ignore. You can download the BeautifulSoup code from www.crummy.com. 
+    
+    **Port** - A number that generally indicates which application you are contacting when you make a socket connection to a server. As an example, web traffic usually uses port 80 while email traffic uses port 25. 
+    
+    **Scrape** - When a program pretends to be a web browser and retrieves a web page, then looks at the web page content. Often programs are following the links in one page to find the next page so they can traverse a network of pages or a social network. 
+    
+    **Socket** - A network connection between two applications where the applications can send and receive data in either direction. 
+    
+    **Spider** - The act of a web search engine retrieving a page and then all the pages linked from a page and so on until they have nearly all of the pages on the Internet which they use to build their search index.
+
 |
 
 ----
 
-Exercise 12.1
--------------
+Simple Browser with Socket Programming
+----------------------------------------
 
-**Prompt:** Change the socket program ``socket1.py`` to prompt the user for the URL so it can read any web page. You can use ``split('/')`` to break the URL into its component parts so you can extract the host name for the socket ``connect`` call. Add error checking using ``try`` and ``except`` to handle the condition where the user enters an improperly formatted or non-existent URL.
+**Process:**
 
-Link to ``socket1.py``: https://www.py4e.com/code3/socket1.py
+The program will:
 
-Content of ``socket1.py``:
-::
+- Prompt user for a URL.
+- Read the web page.
+- Have error checking to prevent traceback errors.
 
-    import socket
+Click to open `reference code <https://www.py4e.com/code3/socket1.py>`__.
 
-    mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    mysock.connect(('data.pr4e.org', 80))
-    cmd = 'GET http://data.pr4e.org/romeo.txt HTTP/1.0\r\n\r\n'.encode()
-    mysock.send(cmd)
+**Testing methodology:**
 
-    while True:
-        data = mysock.recv(512)
-        if len(data) < 1:
-            break
-        print(data.decode(),end='')
+The program will test for:
 
-    mysock.close()
-
-**Expected output:** None available.
-
-**My outputs:**
-::
-
-    $ python temporaryFile.py 
-    Enter URL in the format of "http://<host-name>/<page-name>": google.com 
-    Please enter the URL in proper format!
-
-::
-
-    $ python temporaryFile.py 
-    Enter URL in the format of "http://<host-name>/<page-name>": htttpp://datt.pre4.org/romeon.txx
-    Please enter an existing URL!
-
-::
-
-    $ python temporaryFile.py 
-    Enter URL in the format of "http://<host-name>/<page-name>": http://data.pr4e.org/romeo.txt
-    HTTP/1.1 200 OK
-    Date: Mon, 03 Jul 2023 03:42:36 GMT
-    Server: Apache/2.4.18 (Ubuntu)
-    Last-Modified: Sat, 13 May 2017 11:22:22 GMT
-    ETag: "a7-54f6609245537"
-    Accept-Ranges: bytes
-    Content-Length: 167
-    Cache-Control: max-age=0, no-cache, no-store, must-revalidate
-    Pragma: no-cache
-    Expires: Wed, 11 Jan 1984 05:00:00 GMT
-    Connection: close
-    Content-Type: text/plain
-
-    But soft what light through yonder window breaks
-    It is the east and Juliet is the sun
-    Arise fair sun and kill the envious moon
-    Who is already sick and pale with grief
+- Proper URL formatting via error checking.
+- Existing URL via error checking.
+- Typical output when input is entered correctly.
 
 **My code:**
 ::
@@ -164,7 +132,46 @@ Content of ``socket1.py``:
 
     mysock.close()
 
-**Reasoning behind my code:**
+**My outputs:**
+
+*Catching improper URL format*
+::
+
+    $ python temporaryFile.py 
+    Enter URL in the format of "http://<host-name>/<page-name>": google.com 
+    Please enter the URL in proper format!
+
+*Catching non-existent URL*
+::
+
+    $ python temporaryFile.py 
+    Enter URL in the format of "http://<host-name>/<page-name>": htttpp://datt.pre4.org/romeon.txx
+    Please enter an existing URL!
+
+*Typical output*
+::
+
+    $ python temporaryFile.py 
+    Enter URL in the format of "http://<host-name>/<page-name>": http://data.pr4e.org/romeo.txt
+    HTTP/1.1 200 OK
+    Date: Mon, 03 Jul 2023 03:42:36 GMT
+    Server: Apache/2.4.18 (Ubuntu)
+    Last-Modified: Sat, 13 May 2017 11:22:22 GMT
+    ETag: "a7-54f6609245537"
+    Accept-Ranges: bytes
+    Content-Length: 167
+    Cache-Control: max-age=0, no-cache, no-store, must-revalidate
+    Pragma: no-cache
+    Expires: Wed, 11 Jan 1984 05:00:00 GMT
+    Connection: close
+    Content-Type: text/plain
+
+    But soft what light through yonder window breaks
+    It is the east and Juliet is the sun
+    Arise fair sun and kill the envious moon
+    Who is already sick and pale with grief
+
+**Notes:**
 
 - The ``socket`` library needs to be imported for network programming.
 - ``url`` asks and stores user input.
@@ -178,12 +185,81 @@ Content of ``socket1.py``:
 
 ----
 
-Exercise 12.2
--------------
+Browser Config with Socket Programming
+---------------------------------------------
 
-**Prompt:** Change your socket program so that it counts the number of characters it has received and stops displaying any text after it has shown 3000 characters. The program should retrieve the entire document and count the total number of characters and display the count of the number of characters at the end of the document.
+**Process:**
 
-**Expected output:** None available.
+The program will:
+
+- Prompt user for a URL.
+- Read the web page.
+- Count the number of characters read.
+- Stop displaying content to the console once 3000 characters are read.
+
+Click to open `reference code <https://www.py4e.com/code3/socket1.py>`__.
+
+**Testing methodology:**
+
+The program will test for:
+
+- Reading in of data, entirely.
+- Total character count of the entire document.
+- Displaying enough content to reach 3000 character count.
+
+**My code:**
+::
+
+    import socket
+
+    url = input("Enter URL in the format of \"http://<host-name>/<page-name>\": ")
+
+    if len(url) < 1:
+        url = "http://data.pr4e.org/romeo-full.txt"
+
+    token = url.split('/')
+
+    try:
+        hostname = token[2]
+
+    except:
+        print("Please enter the URL in proper format!")
+        exit()
+
+    portnum = 80
+    mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    try:
+        mysock.connect((hostname, portnum))
+
+    except:
+        print("Please enter an existing URL!")
+        exit()
+
+    cmd = f'GET {url} HTTP/1.0\r\n\r\n'.encode()
+    mysock.send(cmd)
+
+    displayCount = 0
+    totalCount = 0
+    charLimit = 3000
+
+    while True:
+        data = mysock.recv(500)
+        totalCount += len(data)
+        
+        if len(data) < 1:
+            break
+        
+        elif totalCount >= charLimit+1:
+            displayCount = charLimit
+            continue
+
+        print(data.decode(), end='')
+
+    print(f"\n\nDisplay stopped at character count of {displayCount}")
+    print(f"Total number of characters received: {totalCount}")
+
+    mysock.close()
 
 **My output:**
 ::
@@ -308,81 +384,71 @@ Exercise 12.2
     Display stopped at character count of 3000
     Total number of characters received: 9236
 
-**My code:**
-::
+**Notes:**
 
-    import socket
-
-    url = input("Enter URL in the format of \"http://<host-name>/<page-name>\": ")
-
-    if len(url) < 1:
-        url = "http://data.pr4e.org/romeo-full.txt"
-
-    token = url.split('/')
-
-    try:
-        hostname = token[2]
-
-    except:
-        print("Please enter the URL in proper format!")
-        exit()
-
-    portnum = 80
-    mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    try:
-        mysock.connect((hostname, portnum))
-
-    except:
-        print("Please enter an existing URL!")
-        exit()
-
-    cmd = f'GET {url} HTTP/1.0\r\n\r\n'.encode()
-    mysock.send(cmd)
-
-    displayCount = 0
-    totalCount = 0
-    charLimit = 3000
-
-    while True:
-        data = mysock.recv(500)
-        totalCount += len(data)
-        
-        if len(data) < 1:
-            break
-        
-        elif totalCount >= charLimit+1:
-            displayCount = charLimit
-            continue
-
-        print(data.decode(), end='')
-
-    print(f"\n\nDisplay stopped at character count of {displayCount}")
-    print(f"Total number of characters received: {totalCount}")
-
-    mysock.close()
-
-**Reasoning behind my code:**
-
-- Majority of the code is taken from exercise 12.1. I'll be going over the changes I made for this assignment.
 - In the ``if`` block used to auto-assign a link for testing, the URL is changed to a bigger file to better test the code for this assignment.
 - ``displayCount`` is created to hold the count of the character limit set by the **prompt**.
 - ``totalCount`` is created to hold the total count of all characters that passed through the socket. 
 - ``charLimit`` is created for ease of use and hide the fact that I had to hardcode for this assignment...
 - The ``elif`` block below ``if len(data) < 1:`` is haphazardly put together to get the result expected by the **prompt**. I'm sure there are better ways of doing this... But it achieved the results, at least, for this assignment! But I don't feel good doing it this way...-_-
 - Once everything is sent and received, the program will print out when it stopped display and what the total count of characters is in total.
-- **After completing exercise 12.3, I realized that this code is flawed. Check out exercise 12.3 to see the difference in the output!**
 
 |
 
 ----
 
-Exercise 12.3
--------------
+Socket Programming Made Easy
+----------------------------
 
-**Prompt:** Use ``urllib`` to replicate the previous exercise of (1) retrieving the document from a URL, (2) displaying up to 3000 characters, and (3) counting the overall number of characters in the document. Don't worry about the headers for this exercise, simply show the first 3000 characters of the document contents.
+**Process:**
 
-**Expected output:** None available.
+The application will:
+
+- Prompt the user for a URL.
+- Retrieve document from the URL.
+- Display up to 3000 characters to the console.
+- Count the total number of characters read.
+- Pretty much replicate the capabilities of the previous two programs, combined. And be built more easily through use of Python's ``urllib`` modules.
+
+Click to open `reference code <https://www.py4e.com/code3/urllib1.py>`__.
+
+**Testing methodology:**
+
+This application will test for all capabilities of programs from the previous two sections.
+
+**My code:**
+::
+
+    import urllib.request, urllib.parse, urllib.error
+
+    url = input("Enter URL in the format of \"http://<host-name>/<page-name>\": ")
+
+    if len(url) < 1:
+        url = "http://data.pr4e.org/romeo-full.txt"
+
+    fhand = urllib.request.urlopen(url)
+
+    totalCount = 0
+    displayCount = 0
+    charLimit = 3000
+
+    for line in fhand:
+        line = line.decode().strip()
+        totalCount += len(line)
+        
+        if displayCount < charLimit:
+            displayCount += len(line)
+
+            if not displayCount > charLimit:
+                print(line)
+            
+            else:
+                displayEnds = (charLimit - displayCount) + 1
+                displayCount = displayCount - (displayCount - charLimit)
+                print(line[:displayEnds])
+
+    print(f"\nDisplay ends at character count of {displayCount}")
+    print(f"Total number of characters received: {totalCount}")
 
 **My output:**
 ::
@@ -513,43 +579,8 @@ Exercise 12.3
     Display ends at character count of 3000
     Total number of characters received: 8473
 
-**My code:**
-::
+**Notes:**
 
-    import urllib.request, urllib.parse, urllib.error
-
-    url = input("Enter URL in the format of \"http://<host-name>/<page-name>\": ")
-
-    if len(url) < 1:
-        url = "http://data.pr4e.org/romeo-full.txt"
-
-    fhand = urllib.request.urlopen(url)
-
-    totalCount = 0
-    displayCount = 0
-    charLimit = 3000
-
-    for line in fhand:
-        line = line.decode().strip()
-        totalCount += len(line)
-        
-        if displayCount < charLimit:
-            displayCount += len(line)
-
-            if not displayCount > charLimit:
-                print(line)
-            
-            else:
-                displayEnds = (charLimit - displayCount) + 1
-                displayCount = displayCount - (displayCount - charLimit)
-                print(line[:displayEnds])
-
-    print(f"\nDisplay ends at character count of {displayCount}")
-    print(f"Total number of characters received: {totalCount}")
-
-**Reasoning behind my code:**
-
-- It's kind of hard to check the validity of the output when there's no **expected output** to match it against. However, seeing the flawed code from exercise 12.2, I'm confident that this code is more accurate.
 - For this assignment we'll need to ``import`` the ``request``, ``parse`` and ``error`` classes from ``urllib`` library.
 - ``if`` no user input is detected, ``url`` will be initialized with a default value.
 - With ``urllib`` we can manipulate web pages as if they're local files.
@@ -566,64 +597,22 @@ Exercise 12.3
 
 ----
 
-Exercise 12.4
--------------
+Simple Web Scraper
+------------------
 
-**Prompt:** Change the ``urllinks.py`` program to extract and count paragraph (p) tags from the retrieved HTML document and display the count of the paragraphs as the output of your program. Do not display the paragraph text, only count them. Test your program on several small web pages as well as some larger web pages.
+**Process:**
 
-Link to ``urllinks.py``: https://www.py4e.com/code3/urllinks.py
+The application will:
 
-Content of ``urllinks.py``:
-::
+- Prompt the user for a URL.
+- Extract and count paragraph ``<p>`` tags from the retrieved HTML document.
+- Display the count of ``<p>`` tags to the console.
 
-    # To run this, download the BeautifulSoup zip file
-    # http://www.py4e.com/code3/bs4.zip
-    # and unzip it in the same directory as this file
+Click to open `reference code <https://www.py4e.com/code3/urllinks.py>`__.
 
-    import urllib.request, urllib.parse, urllib.error
-    from bs4 import BeautifulSoup
-    import ssl
+**Testing methodology:**
 
-    # Ignore SSL certificate errors
-    ctx = ssl.create_default_context()
-    ctx.check_hostname = False
-    ctx.verify_mode = ssl.CERT_NONE
-
-    url = input('Enter - ')
-    html = urllib.request.urlopen(url, context=ctx).read()
-    soup = BeautifulSoup(html, 'html.parser')
-
-    # Retrieve all of the anchor tags
-    tags = soup('a')
-    for tag in tags:
-        print(tag.get('href', None))
-        
-**Expected output:** None available.
-
-**My outputs:**
-::
-
-    $ python temporaryFile.py 
-    Enter - http://www.dr-chuck.com/page1.htm 
-    Total count of paragraph tags is 1
-
-::
-
-    $ python temporaryFile.py 
-    Enter - https://www.dr-chuck.com/page2.htm 
-    Total count of paragraph tags is 1
-
-::
-
-    $ python temporaryFile.py 
-    Enter - https://www.python.org
-    Total count of paragraph tags is 23
-
-::
-
-    $ python temporaryFile.py 
-    Enter - https://www.yinza.com/Fandom/Script/01.html
-    Total count of paragraph tags is 192
+The application will test with multiple sized web pages and display ``<p>`` tags found.
 
 **My code:**
 ::
@@ -652,47 +641,60 @@ Content of ``urllinks.py``:
     # print out the total count of paragraph tags found in web page
     print(f"Total count of paragraph tags is {count}")
 
-**Reasoning behind my code:**
+**My outputs:**
 
-I commented in the code for this assignment. As it is straightforward, I'll refrain from explain further here and suggest you look at the code.
+*Small size web page #1*
+::
+
+    $ python temporaryFile.py 
+    Enter - http://www.dr-chuck.com/page1.htm 
+    Total count of paragraph tags is 1
+
+*Small size web page #2*
+::
+
+    $ python temporaryFile.py 
+    Enter - https://www.dr-chuck.com/page2.htm 
+    Total count of paragraph tags is 1
+
+*Medium size web page*
+::
+
+    $ python temporaryFile.py 
+    Enter - https://www.python.org
+    Total count of paragraph tags is 23
+
+*Large size web page*
+::
+
+    $ python temporaryFile.py 
+    Enter - https://www.yinza.com/Fandom/Script/01.html
+    Total count of paragraph tags is 192
 
 |
 
 ----
 
-Exercise 12.5
--------------
+Browser Config with Socket Programming II
+-----------------------------------------
 
-**Prompt:** (Advanced) Change the socket program so that it only shows data after the headers and a blank line have been received. Remember that ``recv`` receives characters (newlines and all), not lines.
+**Process:**
 
-**Expected output:** None available.
+This application will:
 
-**My outputs:**
-::
+- Perform a more advanced technique in socket programming.
+- Only show content of the web page once it determines that the header as been received.
+- Display only the content of the web page.
 
-    $ python temporaryFile.py 
-    Enter a URL: google.com
-    Please enter the URL in proper format!
+Click to open `reference code <https://www.py4e.com/code3/socket1.py>`__.
 
-::
+**Testing methodology:**
 
-    $ python temporaryFile.py 
-    Enter a URL: htttpp:///dat.pro4e.org/romeo.txt
-    Please enter an existing URL!
-
-::
-
-    $ python temporaryFile.py 
-    Enter a URL: http://data.pr4e.org/romeo.txt
-    But soft what light through yonder window breaks
-    It is the east and Juliet is the sun
-    Arise fair sun and kill the envious moon
-    Who is already sick and pale with grief
+The application will test its error checking capabilities and display necessary content of the web page entered by the user.
 
 **My code:**
 ::
 
-    # code borrowed from 12.1
     import socket
 
     url = input("Enter a URL: ")
@@ -740,82 +742,59 @@ Exercise 12.5
     # print the content after skipping the position of the end line characters
     print(content[pos+4:])
 
-**Reasoning behind my code:**
+**My outputs:**
 
-The code is borrowed from exercise 12.1, so most of the code are already explained. Reasons on the changes are commented in the code. Feel free to take a look.
+*Catching improper formatting*
+::
+
+    $ python temporaryFile.py 
+    Enter a URL: google.com
+    Please enter the URL in proper format!
+
+*Catching non-existent URL*
+::
+
+    $ python temporaryFile.py 
+    Enter a URL: htttpp:///dat.pro4e.org/romeo.txt
+    Please enter an existing URL!
+
+*Typical output*
+::
+
+    $ python temporaryFile.py 
+    Enter a URL: http://data.pr4e.org/romeo.txt
+    But soft what light through yonder window breaks
+    It is the east and Juliet is the sun
+    Arise fair sun and kill the envious moon
+    Who is already sick and pale with grief
 
 |
 
 ----
 
-Autograder: Request-Response Cycle
-----------------------------------
+Analyzing Request-Response Cycle
+--------------------------------
 
-**Prompt:** Exploring the HyperText Transport Protocol
+**Process:**
 
-You are to retrieve the following document using the HTTP protocol in a way that you can examine the HTTP Response headers.
+The application will:
 
-Link: https://data.pr4e.org/intro-short.txt
+- Retrieve the following document using the HTTP protocol in a way that it can examine the HTTP Response headers.
+- Display the header values in the following fields:
+   
+  - Last-Modified
+  - ETag
+  - Content-Length
+  - Cache-Control
+  - Content-Type
 
-There are three ways that you might retrieve this web page and look at the response headers: 
+Click to open `reference code <https://www.py4e.com/code3/socket1.py>`__.
 
-#) **Preferred:** Modify the ``socket1.py`` program to retrieve the above URL and print out the headers and data. Make sure to **change** the code to retrieve the above URL - the values are different for each URL.
-#) Open the URL in a web browser with a **developer console** and manually examine the headers that are returned.
-#) Open the URL in a web browser with **FireBug** and manually examine the headers that are returned.
+Click to open `test data <https://data.pr4e.org/intro-short.txt>`__.
 
-Enter the header values in each of the fields below:
+**Testing methodology:**
 
-- Last-Modified
-- ETag
-- Content-Length
-- Cache-Control
-- Content-Type
-
-**Expected output:** None available.
-
-**My outputs:**
-
-*preferred method*
-::
-
-    $ python temporaryFile.py 
-    HTTP/1.1 200 OK
-    Date: Wed, 05 Jul 2023 00:27:37 GMT
-    Server: Apache/2.4.18 (Ubuntu)
-    Last-Modified: Sat, 13 May 2017 11:22:22 GMT
-    ETag: "1d3-54f6609240717"
-    Accept-Ranges: bytes
-    Content-Length: 467
-    Cache-Control: max-age=0, no-cache, no-store, must-revalidate
-    Pragma: no-cache
-    Expires: Wed, 11 Jan 1984 05:00:00 GMT
-    Connection: close
-    Content-Type: text/plain
-
-    Why should you learn to write programs?
-
-    Writing programs (or programming) is a very creative
-    and rewarding activity.  You can write programs for
-    many reasons, ranging from making your living to solving
-    a difficult data analysis problem to having fun to helping
-    someone else solve a problem.  This book assumes that
-    everyone needs to know how to program, and that once
-    you know how to program you will figure out what you want
-    to do with your newfound skills.
-
-    -------------------------------------------------------------
-    Extracted values:
-    Last-Modified: Sat, 13 May 2017 11:22:22 GMT
-    ETag: "1d3-54f6609240717"
-    Content-Length: 467
-    Cache-Control: max-age=0, no-cache, no-store, must-revalidate
-    Content-Type: text/plain
-
-*Developer tools method*
-
-.. image:: img/developer_tools.PNG
-    :width: 800
-    :alt: Image shows the header info of the web page
+The application will test using the test data URL and display header values of interest.
 
 **My code:**
 ::
@@ -856,40 +835,75 @@ Enter the header values in each of the fields below:
     for value in lista:
         print(value)
 
-**Reasoning behind my code:**
+**My output:**
+::
 
-*The preferred method*
+    $ python temporaryFile.py 
+    HTTP/1.1 200 OK
+    Date: Wed, 05 Jul 2023 00:27:37 GMT
+    Server: Apache/2.4.18 (Ubuntu)
+    Last-Modified: Sat, 13 May 2017 11:22:22 GMT
+    ETag: "1d3-54f6609240717"
+    Accept-Ranges: bytes
+    Content-Length: 467
+    Cache-Control: max-age=0, no-cache, no-store, must-revalidate
+    Pragma: no-cache
+    Expires: Wed, 11 Jan 1984 05:00:00 GMT
+    Connection: close
+    Content-Type: text/plain
 
-- Similar to exercise 12.1, I edited the ``socket1.py`` file to accommodate for this assignment. The changes are commented in the code. Feel free to take a look.
+    Why should you learn to write programs?
 
-*The developer tools method*
+    Writing programs (or programming) is a very creative
+    and rewarding activity.  You can write programs for
+    many reasons, ranging from making your living to solving
+    a difficult data analysis problem to having fun to helping
+    someone else solve a problem.  This book assumes that
+    everyone needs to know how to program, and that once
+    you know how to program you will figure out what you want
+    to do with your newfound skills.
 
-- For this method, I used *Firefox's* built-in *Developer Tools* feature.
-- I would first enter the link to the web page into the *address bar* to go to the site. The link is https://data.pr4e.org/intro-short.txt.
-- Once in the page, I would *right-click and click* on the option to **Inspect (Q)**
-- Then I would go into the **Network** tab and click on the **Reload** button.
-- A line showing the domain name ``data.pr4e.org`` and file name ``intro-short.txt`` would populate.
-- Clicking on that line will show the header info (image is shown the **my outputs** section, above).
-  
-I omitted doing the **Firebug** method, seeing as it's very similar to using the developer tools.
+    -------------------------------------------------------------
+    Extracted values:
+    Last-Modified: Sat, 13 May 2017 11:22:22 GMT
+    ETag: "1d3-54f6609240717"
+    Content-Length: 467
+    Cache-Control: max-age=0, no-cache, no-store, must-revalidate
+    Content-Type: text/plain
+
+**Notes:**
+
+*Developer tools method*
+
+Another way to extract header information is through using a web browser's developer feature. To showcase this method, I'll be using *Firefox's* built-in *Developer Tools*. First we enter the link to the web page into the *address bar*.
+
+The link is https://data.pr4e.org/intro-short.txt.
+
+Once in the page, *right-click and click* on the option to **Inspect (Q)**. Then go into the **Network** tab and click on the **Reload** button. A line showing the domain name ``data.pr4e.org`` and file name ``intro-short.txt`` would populate. Clicking on that line will show the header info. In there, we can see header values we want amongst other ones.
+
+.. image:: img/developer_tools.PNG
+    :width: 800
+    :alt: Image shows the header info of the current web page
 
 |
 
 ----
 
-Autograder: Scraping HTML Data with BeautifulSoup
--------------------------------------------------
+Web Scraper with BeautifulSoup
+------------------------------
 
-**Prompt:** Scraping Numbers from HTML using BeautifulSoup
+**Process:**
 
-In this assignment you will write a Python program similar to `urllink2.py <http://www.py4e.com/code3/urllink2.py>`_. The program will use **urllib** to read the HTML from the data files below, and parse the data, extracting numbers and compute the sum of the numbers in the file.
+This application will:
 
-We provide two files for this assignment. One is a sample file where we give you the sum for your testing and the other is the actual data you need to process for the assignment.
+- Prompt user for a URL.
+- Read in the web page.
+- Parse the data.
+- Scrape and extract numbers from the page's HTML.
+- Compute the sum of the numbers extracted.
+- Display results to the console.
 
-- Sample data: http://py4e-data.dr-chuck.net/comments_42.html (Sum=2553) 
-- Actual data: http://py4e-data.dr-chuck.net/comments_1784990.html (Sum ends with 0)
-
-The file is a table of names and comment counts. You can ignore most of the data in the file except for lines like the following: 
+The sample data consist of a table of names and comment counts. The application will ignore most of the data in the file except for lines like the following: 
 
 .. code-block:: html
 
@@ -897,24 +911,17 @@ The file is a table of names and comment counts. You can ignore most of the data
     <tr><td>Kenzie</td><td><span class="comments">88</span></td></tr>
     <tr><td>Hubert</td><td><span class="comments">87</span></td></tr>
 
-You are to find all the <span> tags in the file and pull out the numbers from the tag and sum the numbers.
+Click to open `reference code <http://www.py4e.com/code3/urllink2.py>`__.
 
-Look at the `sample code <http://www.py4e.com/code3/urllink2.py>`_ provided. It shows how to find all of a certain kind of tag, loop through the tags and extract the various aspects of the tags. 
-::
+Click to open `small sample data <http://py4e-data.dr-chuck.net/comments_42.html>`__.
 
-    ...
-    # Retrieve all of the anchor tags
-    tags = soup('a')
-    for tag in tags:
-       # Look at the parts of a tag
-       print 'TAG:',tag
-       print 'URL:',tag.get('href', None)
-       print 'Contents:',tag.contents[0]
-       print 'Attrs:',tag.attrs
-       
-You need to adjust this code to look for **span** tags and pull out the text content of the span tag, convert them to integers and add them up to complete the assignment. 
+Click to open `large sample data <http://py4e-data.dr-chuck.net/comments_1784990.html>`__.
 
-**Expected output:** Sample execution
+**Testing methodology:**
+
+The application will be fed two sample data, small and large in size. It will then loop through HTML tags to reach the necessary content before scraping and extracting it.
+
+*Sample execution*
 ::
 
     $ python3 solution.py
@@ -922,20 +929,12 @@ You need to adjust this code to look for **span** tags and pull out the text con
     Count 50
     Sum 2...
 
-**My outputs:**
-::
+*Hint*
 
-    $ python temporaryFile.py 
-    Enter - http://py4e-data.dr-chuck.net/comments_42.html
-    Count 50
-    Sum 2553
+.. code-block:: text
 
-::
-
-    $ python temporaryFile.py 
-    Enter -  http://py4e-data.dr-chuck.net/comments_1784990.html
-    Count 50
-    Sum 2700
+    Small sample data should have sum of 2553
+    Large sample data should have a sum that ends with 0
 
 **My code:**
 ::
@@ -961,9 +960,26 @@ You need to adjust this code to look for **span** tags and pull out the text con
 
     print(f'Count {count}\nSum {total}')
 
-**Reasoning behind my code:**
+**My outputs:**
 
-- Reading through the code in `urllink2.py <http://www.py4e.com/code3/urllink2.py>`_, I took what I need and expanded further to complete this assignment.
+*small sample data*
+::
+
+    $ python temporaryFile.py 
+    Enter - http://py4e-data.dr-chuck.net/comments_42.html
+    Count 50
+    Sum 2553
+
+*large sample data*
+::
+
+    $ python temporaryFile.py 
+    Enter -  http://py4e-data.dr-chuck.net/comments_1784990.html
+    Count 50
+    Sum 2700
+
+**Notes:**
+
 - The typical modules need to be imported from ``urllib`` are ``request``, ``parser`` and ``error``. From ``request`` I imported ``urlopen`` to make it easier to call the object in the main code.
 - The typical module need to be imported from ``bs4`` is ``BeautifulSoup``.
 - ``url`` asks and stores a URL.
@@ -980,27 +996,40 @@ You need to adjust this code to look for **span** tags and pull out the text con
 
 ----
 
-Autograder: Following Links with BeautifulSoup
-----------------------------------------------
+Web-links Spider with BeautifulSoup
+-----------------------------------
 
-**Prompt:** Following Links in Python
+**Process:**
 
-In this assignment you will write a Python program that expands on `urllinks.py <http://www.py4e.com/code3/urllinks.py>`_. The program will use ``urllib`` to read the HTML from the data files below, *extract* the **href=** values from the **anchor** tags, *scan* for a tag that is in a particular position relative to the first name in the list, follow that link and *repeat* the process a number of times and report the last name you find.
+The application will:
 
-We provide two files for this assignment. One is a sample file where we give you the name for your testing and the other is the actual data you need to process for the assignment:
+- Prompt user for a URL.
+- Extract the **href=** values from the **anchor** tags.
+- Scan for a tag that is in a particular position relative to the first name in the list.
+- Follow the link attached to the first name and *repeat* the process a number of times and report the last name it found.
 
-- **Sample problem:** Start at http://py4e-data.dr-chuck.net/known_by_Fikret.html
-    
-  + Find the link at position ``3``. Follow that link. Repeat this process ``4`` times. The answer is the last name that you retrieve.
-  + *Sequence of names:* ``Fikret Montgomery Mhairade Butchi Anayah``
-  + *Last name in sequence:* ``Anayah``
+Click to open `reference code <http://www.py4e.com/code3/urllinks.py>`__.
 
-- **Actual problem:** Start at http://py4e-data.dr-chuck.net/known_by_Wojciech.html
+Click to open `small sample data <http://py4e-data.dr-chuck.net/known_by_Fikret.html>`__.
 
-  + Find the link at position ``18``. Follow that link. Repeat this process ``7`` times. The answer is the last name that you retrieve.
-  + *Hint:* The first character of the name of the last page that you will load is: ``N``
+Click to open `large sample data <http://py4e-data.dr-chuck.net/known_by_Wojciech.html>`__.
 
-**Expected output:** Sample execution
+**Testing methodology:**
+
+The application will test for:
+
+*Small sample data*
+
+- Find the link at position ``3``. Follow that link. Repeat this process ``4`` times. The answer is the last name that you retrieve.
+- **[Hint]** *Sequence of names:* ``Fikret Montgomery Mhairade Butchi Anayah``
+- **[Hint]** *Last name in sequence:* ``Anayah``
+
+*Large sample data*
+
+- Find the link at position ``18``. Follow that link. Repeat this process ``7`` times. The answer is the last name that you retrieve.
+- **[Hint]** The first character of the name of the last page that you will load is: ``N``
+
+*Sample execution*
 ::
 
     $ python3 solution.py
@@ -1014,42 +1043,6 @@ We provide two files for this assignment. One is a sample file where we give you
     Retrieving: http://py4e-data.dr-chuck.net/known_by_Anayah.html
 
 The answer to the assignment for this execution is **"Anayah"**.
-
-**My outputs:**
-::
-
-    $ python temporaryFile.py 
-    Enter URL: http://py4e-data.dr-chuck.net/known_by_Fikret.html
-    Enter count: 4
-    Enter position: 3
-    Retrieving: http://py4e-data.dr-chuck.net/known_by_Fikret.html
-    Retrieving: http://py4e-data.dr-chuck.net/known_by_Montgomery.html
-    Retrieving: http://py4e-data.dr-chuck.net/known_by_Mhairade.html
-    Retrieving: http://py4e-data.dr-chuck.net/known_by_Butchi.html
-    Retrieving: http://py4e-data.dr-chuck.net/known_by_Anayah.html
-
-    Sequence of names: Fikret Montgomery Mhairade Butchi Anayah 
-    Last name in sequence: Anayah
-
-::
-
-    $ python temporaryFile.py 
-    Enter URL: http://py4e-data.dr-chuck.net/known_by_Wojciech.html
-    Enter count: 7
-    Enter position: 18
-    Retrieving: http://py4e-data.dr-chuck.net/known_by_Wojciech.html
-    Retrieving: http://py4e-data.dr-chuck.net/known_by_Lucca.html
-    Retrieving: http://py4e-data.dr-chuck.net/known_by_Emon.html
-    Retrieving: http://py4e-data.dr-chuck.net/known_by_Laticha.html
-    Retrieving: http://py4e-data.dr-chuck.net/known_by_Harikrishna.html
-    Retrieving: http://py4e-data.dr-chuck.net/known_by_Kenzi.html
-    Retrieving: http://py4e-data.dr-chuck.net/known_by_Maya.html
-    Retrieving: http://py4e-data.dr-chuck.net/known_by_Naima.html
-
-    Sequence of names: Wojciech Lucca Emon Laticha Harikrishna Kenzi Maya Naima
-    Last name in sequence: Naima
-
-The answer to the assignment for this execution is **"Naima"**.
 
 **My code:**
 ::
@@ -1113,7 +1106,46 @@ The answer to the assignment for this execution is **"Naima"**.
 
     print(f'\nLast name in sequence: {sequence[-1]}')
 
-**Reasoning behind my code:**
+**My outputs:**
+
+*Small sample data*
+::
+
+    $ python temporaryFile.py 
+    Enter URL: http://py4e-data.dr-chuck.net/known_by_Fikret.html
+    Enter count: 4
+    Enter position: 3
+    Retrieving: http://py4e-data.dr-chuck.net/known_by_Fikret.html
+    Retrieving: http://py4e-data.dr-chuck.net/known_by_Montgomery.html
+    Retrieving: http://py4e-data.dr-chuck.net/known_by_Mhairade.html
+    Retrieving: http://py4e-data.dr-chuck.net/known_by_Butchi.html
+    Retrieving: http://py4e-data.dr-chuck.net/known_by_Anayah.html
+
+    Sequence of names: Fikret Montgomery Mhairade Butchi Anayah 
+    Last name in sequence: Anayah
+
+*Large sample data*
+::
+
+    $ python temporaryFile.py 
+    Enter URL: http://py4e-data.dr-chuck.net/known_by_Wojciech.html
+    Enter count: 7
+    Enter position: 18
+    Retrieving: http://py4e-data.dr-chuck.net/known_by_Wojciech.html
+    Retrieving: http://py4e-data.dr-chuck.net/known_by_Lucca.html
+    Retrieving: http://py4e-data.dr-chuck.net/known_by_Emon.html
+    Retrieving: http://py4e-data.dr-chuck.net/known_by_Laticha.html
+    Retrieving: http://py4e-data.dr-chuck.net/known_by_Harikrishna.html
+    Retrieving: http://py4e-data.dr-chuck.net/known_by_Kenzi.html
+    Retrieving: http://py4e-data.dr-chuck.net/known_by_Maya.html
+    Retrieving: http://py4e-data.dr-chuck.net/known_by_Naima.html
+
+    Sequence of names: Wojciech Lucca Emon Laticha Harikrishna Kenzi Maya Naima
+    Last name in sequence: Naima
+
+The answer to the assignment for this execution is **"Naima"**.
+
+**Notes:**
 
 I've commented in the code for this assignment. But seeing that this assignment is on the more difficult side of things, for me, I will go further in-depth here, in this section, for my benefit and yours! :)
 
