@@ -3,8 +3,6 @@ Using Web Services
 
 |
 
-For this section, I'll be going over autograder exercises, plus application 1 and 2.
-
 .. contents:: Contents
     :local:
 
@@ -12,19 +10,67 @@ For this section, I'll be going over autograder exercises, plus application 1 an
 
     **Somethings to be familiar with:**
 
+    **XML** stands for *eXtensible Markup Language*.
+
+    XML looks very similar to HTML, but XML is more structured than HTML. Here is a sample of an XML document:
+    
+    .. code-block:: xml
+
+        <person>
+            <name>Chuck</name>
+            <phone type="intl">
+                +1 734 303 4456
+            </phone>
+            <email hide="yes" />
+        </person>
+
+    Each pair of opening (e.g., ``<person>``) and closing tags (e.g., ``</person>``) represents a *element* or *node* with the same name as the tag (e.g., ``person``). Each element can have some text, some attributes (e.g., ``hide``), and other nested elements. If an XML element is empty (i.e., has no content), then it may be depicted by a self-closing tag (e.g., ``<email />``).
+
+    **JSON** stands for *JavaScript Object Notation*.
+
+    Here is a JSON encoding that is roughly equivalent to the simple XML from above:
+    
+    .. code-block:: json
+
+        {
+            "name" : "Chuck",
+            "phone" : {
+                "type" : "intl",
+                "number" : "+1 734 303 4456"
+            },
+            "email" : {
+                "hide" : "yes"
+            }
+        }
+
+    Notice some differences. First, in XML, we can add attributes like “intl” to the “phone” tag. In JSON, we simply have key-value pairs. Also the XML “person” tag is gone, replaced by a set of outer curly braces.
+
+    JSON is quickly becoming the format of choice for nearly all data exchange between applications because of its relative simplicity compared to XML.
+
+    **API** - Application Program Interface - A contract between applications that defines the patterns of interaction between two application components. 
+    
+    **ElementTree** - A built-in Python library used to parse XML data.  
+    
+    **SOA** - Service-Oriented Architecture - When an application is made of components connected across a network. 
+                
 |
 
 ----
 
-Autograder: Extracting Data from XML
-------------------------------------
+Data Extraction in XML Format
+-----------------------------
 
-**Prompt:** In this assignment you will write a Python program somewhat similar to `geoxml.py <http://www.py4e.com/code3/geoxml.py>`_. The program will prompt for a URL, read the XML data from that URL using ``urllib`` and then parse and extract the comment counts from the XML data, compute the **sum** of the numbers in the file.
+**Process:**
 
-We provide two files for this assignment. One is a sample file where we give you the sum for your testing and the other is the actual data you need to process for the assignment.
+This Python program will:
 
-- **Sample data:** http://py4e-data.dr-chuck.net/comments_42.xml **(Sum=2553)** 
-- **Actual data:** http://py4e-data.dr-chuck.net/comments_1784992.xml **(Sum ends with 86)**
+- Prompt the user for a URL containing XML data using ``urllib``.
+- Read in the XML data.
+- Parse the content.
+- Search through all the **<comment>** tags.
+- Find all the **<count>** integer values.
+- Compute the **sum** of integers.
+- Output it to the console.
 
 The data consists of a number of names and comment counts in XML as follows: 
 ::
@@ -34,16 +80,17 @@ The data consists of a number of names and comment counts in XML as follows:
       <count>97</count>
     </comment>
 
-You are to look through all the **<comment>** tags and find the **<count>** values sum the numbers. The closest sample code that shows how to parse XML is *geoxml.py*. But since the nesting of the elements in our data is different than the data we are parsing in that sample code you will have to make real changes to the code. 
+Click to open `reference code <http://www.py4e.com/code3/geoxml.py>`__.
 
-To make the code a little simpler, you can use an *XPath selector string* to look through the entire tree of XML for any tag named *'count'* with the following line of code:
-::
+Click to open `small data sample <http://py4e-data.dr-chuck.net/comments_42.xml>`__.
+  
+Click to open `large data sample <http://py4e-data.dr-chuck.net/comments_1784992.xml>`__.
 
-    counts = tree.findall('.//count')
+**Testing methodology:**
 
-Take a look at the *Python ElementTree documentation* and look for the supported XPath syntax for details. You could also work from the top of the XML down to the comments node and then loop through the child nodes of the comments node.
+Small and large data samples are fed into the program and the sum of integers will be calculated.
 
-**Expected output:** Sample execution
+*Sample execution*
 ::
 
     $ python3 solution.py
@@ -53,25 +100,12 @@ Take a look at the *Python ElementTree documentation* and look for the supported
     Count: 50
     Sum: 2...
 
-**My outputs:**
-::
+*Hint*
 
-    $ python temporaryFile.py 
-    Enter location: http://py4e-data.dr-chuck.net/comments_42.xml
-    Retrieving: http://py4e-data.dr-chuck.net/comments_42.xml
-    Retrieving 4189 characters
-    Count: 50
-    Sum: 2553
+.. code-block:: text
 
-
-::
-
-    $ python temporaryFile.py 
-    Enter location:  http://py4e-data.dr-chuck.net/comments_1784992.xml
-    Retrieving:  http://py4e-data.dr-chuck.net/comments_1784992.xml
-    Retrieving 4224 characters
-    Count: 50
-    Sum: 2386
+    Small data sample's sum is 2553
+    Large data sample's sum ends with 86
 
 **My code:**
 ::
@@ -110,7 +144,29 @@ Take a look at the *Python ElementTree documentation* and look for the supported
     # formatted output to match sample execution
     print(f"Count: {count}\nSum: {sum}")
 
-**Reasoning behind my code:**
+**My outputs:**
+
+*Small data sample*
+::
+
+    $ python temporaryFile.py 
+    Enter location: http://py4e-data.dr-chuck.net/comments_42.xml
+    Retrieving: http://py4e-data.dr-chuck.net/comments_42.xml
+    Retrieving 4189 characters
+    Count: 50
+    Sum: 2553
+
+*Large data sample*
+::
+
+    $ python temporaryFile.py 
+    Enter location:  http://py4e-data.dr-chuck.net/comments_1784992.xml
+    Retrieving:  http://py4e-data.dr-chuck.net/comments_1784992.xml
+    Retrieving 4224 characters
+    Count: 50
+    Sum: 2386
+
+**Notes:**
 
 The code is pretty straightforward. Majority of the concepts and executions are done in previous lessons. The only change is to include the ``xml.etree.ElementTree`` library and converting the URL from a string representation to a tree representation so that we can traverse the xml file and extract necessary information. Feel free to take a look at the comments in the code.
 
@@ -118,15 +174,20 @@ The code is pretty straightforward. Majority of the concepts and executions are 
 
 ----
 
-Autograder: Extract Data from JSON
-----------------------------------
+Data Extraction in JSON Format
+------------------------------
 
-**Prompt:** In this assignment you will write a Python program somewhat similar to `json2.py <http://www.py4e.com/code3/json2.py>`_. The program will prompt for a URL, read the JSON data from that URL using ``urllib`` and then parse and extract the comment counts from the JSON data, compute the **sum** of the numbers in the file and enter the sum below:
+**Process:**
 
-We provide two files for this assignment. One is a sample file where we give you the sum for your testing and the other is the actual data you need to process for the assignment. 
+This Python program will:
 
-- **Sample data:** http://py4e-data.dr-chuck.net/comments_42.json **(Sum=2553)**
-- **Actual data:** http://py4e-data.dr-chuck.net/comments_1784993.json **(Sum ends with 14)**
+- Prompt the user for a URL containing JSON data using ``urllib``.
+- Read in the JSON data.
+- Parse the content.
+- Search through all the **<comment>** tags.
+- Find all the **<count>** integer values.
+- Compute the **sum** of integers.
+- Output it to the console.
 
 The data consists of a number of names and comment counts in JSON as follows:
 
@@ -146,9 +207,17 @@ The data consists of a number of names and comment counts in JSON as follows:
       ]
     }
 
-The closest sample code that shows how to parse JSON and extract a list is json2.py. You might also want to look at geoxml.py to see how to prompt for a URL and retrieve data from a URL. 
+Click to open `reference code <http://www.py4e.com/code3/json2.py>`__.
 
-**Expected output:** Sample execution
+Click to open `small data sample <http://py4e-data.dr-chuck.net/comments_42.json>`__.
+
+Click to open `large data sample <http://py4e-data.dr-chuck.net/comments_1784993.json>`__.
+
+**Testing methodology:**
+
+Small and large data samples are fed into the program and the sum of integers will be calculated.
+
+*Sample Execution*
 ::
 
     $ python3 solution.py
@@ -158,24 +227,12 @@ The closest sample code that shows how to parse JSON and extract a list is json2
     Count: 50
     Sum: 2...
 
-**My outputs:**
-::
+*Hint*
 
-    $ python temporaryFile.py 
-    Enter location: http://py4e-data.dr-chuck.net/comments_42.json
-    Retrieving: http://py4e-data.dr-chuck.net/comments_42.json
-    Retrieving 2711 characters
-    Count: 50
-    Sum: 2553
+.. code-block:: text
 
-::
-
-    $ python temporaryFile.py 
-    Enter location: http://py4e-data.dr-chuck.net/comments_1784993.json  
-    Retrieving: http://py4e-data.dr-chuck.net/comments_1784993.json
-    Retrieving 2740 characters
-    Count: 50
-    Sum: 2714
+    Sum of small sample data is 2552
+    Sum of large sample data ends with 14
 
 **My code:**
 ::
@@ -214,69 +271,94 @@ The closest sample code that shows how to parse JSON and extract a list is json2
     # formatted output to match sample execution
     print(f"Count: {count}\nSum: {total}")
 
-**Reasoning behind my code:**
+**My outputs:**
 
-This assignment is almost identical to the previous autograder exercise. I have the comments in the code so feel free to take a look.
+*Small data sample*
+::
+
+    $ python temporaryFile.py 
+    Enter location: http://py4e-data.dr-chuck.net/comments_42.json
+    Retrieving: http://py4e-data.dr-chuck.net/comments_42.json
+    Retrieving 2711 characters
+    Count: 50
+    Sum: 2553
+
+*Large data sample*
+::
+
+    $ python temporaryFile.py 
+    Enter location: http://py4e-data.dr-chuck.net/comments_1784993.json  
+    Retrieving: http://py4e-data.dr-chuck.net/comments_1784993.json
+    Retrieving 2740 characters
+    Count: 50
+    Sum: 2714
+
+**Notes:**
+
+The approach is similar to the XML version.
 
 |
 
 ----
 
-Autograder: Using the GeoJSON API
-----------------------------------
+Data Extraction Web Service - GeoJSON API
+-----------------------------------------
 
-**Prompt:** Calling a JSON API
+**Process:**
 
-In this assignment you will write a Python program somewhat similar to `geojson.py <http://www.py4e.com/code3/geojson.py>`_. The program will prompt for a location, contact a web service and retrieve JSON for the web service and parse that data, and retrieve the first **place_id** from the JSON. A place ID is a textual identifier that uniquely identifies a place as within Google Maps.
+This Python program will:
 
-**API End Points:** To complete this assignment, you should use this API endpoint that has a static subset of the Google Data:
+- Prompt the user for a location.
+- Contact a web service via API endpoint.
+- Retrieve JSON data from the web service.
+- Parse the data.
+- Display count of characters retrieved.
+- Retrieve the first **place_id** from the data.
+
+A place ID is a textual identifier that uniquely identifies a place as within Google Maps.
+
+*API end point*
 ::
 
     http://py4e-data.dr-chuck.net/json?
 
-This API uses the same parameter (address) as the Google API. This API also has no rate limit so you can test as often as you like. If you visit the URL with no parameters, you get "No address..." response.
+*API key is* ``42``.
 
-To call the API, you need to include a **key=** parameter and provide the address that you are requesting as the **address=** parameter that is properly URL encoded using the ``urllib.parse.urlencode()`` function as shown in `geojson.py <http://www.py4e.com/code3/geojson.py>`_.
+Click to open `reference code <http://www.py4e.com/code3/geojson.py>`__.
 
-Make sure to check that your code is using the API endpoint as shown above. You will get different results from the **geojson** and **json** endpoints so make sure you are using the same end point as this autograder is using.
+**Testing methodology:**
 
-Please run your program to find the place_id for this location:
+The program will call the API with the provided **key=** and **address=** parameters and encoded URL to find the **place_id** of the following test data:
+
+*Location & hint*
+
+.. code-block:: text
+
+    South Federal University
+
+::
+
+    The place_id will should be "ChIJNeHD4p-540AR2Q0_ZjwmKJ8"
+
+*Location & hint*
 
 .. code-block:: text
 
     Hanoi University of Science and Technology
 
-Make sure to enter the name and case exactly as above and enter the **place_id** and your Python code below. Hint: The first seven characters of the **place_id** are *"ChIJq_B ..."*
+::
 
-Make sure to retreive the data from the URL specified above and **not** the normal Google API. Your program should work with the Google API - but the **place_id** may not match for this assignment.
+    The first seven characters of the place_id should be "ChIJq_B..."
 
-**Expected output:** Test Data / Sample Execution
 
-You can test to see if your program is working with a location of *"South Federal University"* which will have a **place_id** of *"ChIJNeHD4p-540AR2Q0_ZjwmKJ8"*.
+*Sample Execution*
 ::
 
     $ python3 solution.py
     Enter location: South Federal University
     Retrieving http://...
     Retrieved 2453 characters
-    Place id ChIJNeHD4p-540AR2Q0_ZjwmKJ8
-
-**My outputs:**
-::
-
-    $ python temporaryFile.py 
-    Enter location: South Federal University
-    Retrieving http://py4e-data.dr-chuck.net/json?key=42&address=South+Federal+University
-    Retrieved 4819 characters
-    Place id ChIJNeHD4p-540AR2Q0_ZjwmKJ8
-
-::
-
-    $ python temporaryFile.py
-    Enter location: Hanoi University of Science and Technology
-    Retrieving http://py4e-data.dr-chuck.net/json?key=42&address=Hanoi+University+of+Science+and+Technology
-    Retrieved 1980 characters
-    Place id ChIJq_BLKXGsNTER2qkEXg7S4sc
+    Place id ChI...
 
 **My code:**
 ::
@@ -327,23 +409,60 @@ You can test to see if your program is working with a location of *"South Federa
     # formatted output
     print(f"Place id {placeID}")
 
-**Reasoning behind my code:**
+**My outputs:**
 
-The code is commented sufficiently. Only things to point out are that the API key ``42`` was given out by the professor and the link to the API endpoint is stated in the prompt. This project focusing on utilizing JSON.
+*Place ID of South Federal University*
+::
+
+    $ python temporaryFile.py 
+    Enter location: South Federal University
+    Retrieving http://py4e-data.dr-chuck.net/json?key=42&address=South+Federal+University
+    Retrieved 4819 characters
+    Place id ChIJNeHD4p-540AR2Q0_ZjwmKJ8
+
+*Place ID of Hanoi University of Science and Technology*
+::
+
+    $ python temporaryFile.py
+    Enter location: Hanoi University of Science and Technology
+    Retrieving http://py4e-data.dr-chuck.net/json?key=42&address=Hanoi+University+of+Science+and+Technology
+    Retrieved 1980 characters
+    Place id ChIJq_BLKXGsNTER2qkEXg7S4sc
 
 |
 
 ----
 
-Application: Google geocoding web service
------------------------------------------
+Data Extraction Web Service - Google Geocoding API
+--------------------------------------------------
 
-**Prompt:** Change either ``geojson.py`` or ``geoxml.py`` to print out the **two-character country code** from the retrieved data. **Add error checking** so your program does not traceback if the country code is not there. Once you have it working, search for **"Atlantic Ocean"** and make sure it can handle locations that are **not in any country**.
+**Process:**
 
-- Link to ``geojson.py``: https://www.py4e.com/code3/geojson.py
-- Link to ``geojson.py``: https://www.py4e.com/code3/geoxml.py
+This application will:
 
-**Expected output:** Sample from reference material
+- Prompt the user for a location.
+- Contact the Google Geocoding web service via its API endpoint.
+- Retrieve JSON data from the web service.
+- Parse the data.
+- Display count of characters retrieved.
+- Display JSON snippet pertaining to the location entered.
+- Retrieve the first **two-character country code** from the data.
+- Have error checking implemented so it won't display traceback errors if the country code is not found.
+
+Click to open `reference code <https://www.py4e.com/code3/geojson.py>`__.
+
+Click to see how to `obscure API key <https://www.py4e.com/code3/hidden.py>`__ within your code.
+
+**Testing methodology:**
+
+The application will test for:
+
+- An invalid input.
+- A normal country location.
+- A location that's not in any country.
+- The Atlantic Ocean.
+
+*Sample Execution*
 ::
 
     $ python3 geojson.py
@@ -426,136 +545,6 @@ Application: Google geocoding web service
     }
     lat 42.2808256 lng -83.7430378
     Ann Arbor, MI, USA
-
-**My outputs:**
-
-**Scenario:** *location entered can not be found*
-::
-
-    $ python temporaryFile.py
-    Enter location: spider-verse
-    Retrieving https://maps.googleapis.com/maps/api/geocode/json?address=spider-verse&key=HIDDEN_API_KEY
-    Retrieved 52 characters
-    {
-      "results": [],
-      "status": "ZERO_RESULTS"
-    }
-
-    Data on location NOT found! Status: ZERO_RESULTS
-    Exiting program...
-
-**Scenario:** *typical output on a location*
-::
-
-    $ python temporaryFile.py
-    Enter location: Austin, TX
-    Retrieving https://maps.googleapis.com/maps/api/geocode/json?address=Austin%2C+TX&key=HIDDEN_API_KEY
-    Retrieved 1756 characters
-    {
-      "results": [
-        {
-          "address_components": [
-            {
-              "long_name": "Austin",
-              "short_name": "Austin",
-              "types": [
-                "locality",
-                "political"
-              ]
-            },
-            {
-              "long_name": "Travis County",      
-              "short_name": "Travis County",     
-              "types": [
-                "administrative_area_level_2",   
-                "political"
-              ]
-            },
-            {
-              "long_name": "Texas",
-              "short_name": "TX",
-              "types": [
-                "administrative_area_level_1",   
-                "political"
-              ]
-            },
-            {
-              "long_name": "United States",      
-              "short_name": "US",
-              "types": [
-                "country",
-                "political"
-              ]
-            }
-          ],
-          "formatted_address": "Austin, TX, USA",
-          "geometry": {
-            "bounds": {
-              "northeast": {
-                "lat": 30.5168629,
-                "lng": -97.57310199999999
-              },
-              "southwest": {
-                "lat": 30.0986589,
-                "lng": -97.9383829
-              }
-            },
-            "location": {
-              "lat": 30.267153,
-              "lng": -97.7430608
-            },
-            "location_type": "APPROXIMATE",
-            "viewport": {
-              "northeast": {
-                "lat": 30.5168629,
-                "lng": -97.57310199999999
-              },
-              "southwest": {
-                "lat": 30.0986589,
-                "lng": -97.9383829
-              }
-            }
-          },
-          "place_id": "ChIJLwPMoJm1RIYRetVp1EtGm10",
-          "types": [
-            "locality",
-            "political"
-          ]
-        }
-      ],
-      "status": "OK"
-    }
-
-    ===Results===
-    Location: United States
-    Category of "country"
-    Country code: US
-
-**Scenario:** *searching for the Atlantic Ocean (skipping JSON data going forward to save space)*
-::
-
-    $ python temporaryFile.py
-    Enter location: Atlantic Ocean
-    Retrieving https://maps.googleapis.com/maps/api/geocode/json?address=Atlantic+Ocean&key=HIDDEN_API_KEY
-    Retrieved 1228 characters
-
-    ===Results===
-    Location: Atlantic Ocean   
-    Category of "establishment"
-    No country code available
-
-**Scenario:** *making sure program can handle locations not within a country... so let's search for a continent, instead!*
-::
-
-    $ python temporaryFile.py
-    Enter location: Europe
-    Retrieving https://maps.googleapis.com/maps/api/geocode/json?address=Europe&key=HIDDEN_API_KEY
-    Retrieved 1191 characters
-
-    ===Results===
-    Location: Europe
-    Category of "continent"  
-    No country code available
 
 **My code:**
 ::
@@ -643,9 +632,138 @@ Application: Google geocoding web service
         print("No country code available")
     else:
         print(f"Country code: {shortname}")
-        
 
-**Reasoning behind my code:**
+**My outputs:**
 
-The code is commented sufficiently. Feel free to take a look. Something to point out. In the ``import`` section, there's a ``googleapi`` module. This module is another Python file created by me in the name of ``googleapi.py``. This file's main purpose is to obscure the API key and calling it in this program, when necessary. I learned how to do so by looking at `hidden.py <https://www.py4e.com/code3/hidden.py>`_.
+*Scenario: location entered can not be found*
+::
+
+    $ python temporaryFile.py
+    Enter location: spider-verse
+    Retrieving https://maps.googleapis.com/maps/api/geocode/json?address=spider-verse&key=HIDDEN_API_KEY
+    Retrieved 52 characters
+    {
+      "results": [],
+      "status": "ZERO_RESULTS"
+    }
+
+    Data on location NOT found! Status: ZERO_RESULTS
+    Exiting program...
+
+*Scenario: location entered is available in a country*
+::
+
+    $ python temporaryFile.py
+    Enter location: Austin, TX
+    Retrieving https://maps.googleapis.com/maps/api/geocode/json?address=Austin%2C+TX&key=HIDDEN_API_KEY
+    Retrieved 1756 characters
+    {
+      "results": [
+        {
+          "address_components": [
+            {
+              "long_name": "Austin",
+              "short_name": "Austin",
+              "types": [
+                "locality",
+                "political"
+              ]
+            },
+            {
+              "long_name": "Travis County",      
+              "short_name": "Travis County",     
+              "types": [
+                "administrative_area_level_2",   
+                "political"
+              ]
+            },
+            {
+              "long_name": "Texas",
+              "short_name": "TX",
+              "types": [
+                "administrative_area_level_1",   
+                "political"
+              ]
+            },
+            {
+              "long_name": "United States",      
+              "short_name": "US",
+              "types": [
+                "country",
+                "political"
+              ]
+            }
+          ],
+          "formatted_address": "Austin, TX, USA",
+          "geometry": {
+            "bounds": {
+              "northeast": {
+                "lat": 30.5168629,
+                "lng": -97.57310199999999
+              },
+              "southwest": {
+                "lat": 30.0986589,
+                "lng": -97.9383829
+              }
+            },
+            "location": {
+              "lat": 30.267153,
+              "lng": -97.7430608
+            },
+            "location_type": "APPROXIMATE",
+            "viewport": {
+              "northeast": {
+                "lat": 30.5168629,
+                "lng": -97.57310199999999
+              },
+              "southwest": {
+                "lat": 30.0986589,
+                "lng": -97.9383829
+              }
+            }
+          },
+          "place_id": "ChIJLwPMoJm1RIYRetVp1EtGm10",
+          "types": [
+            "locality",
+            "political"
+          ]
+        }
+      ],
+      "status": "OK"
+    }
+
+    ===Results===
+    Location: United States
+    Category of "country"
+    Country code: US
+
+*Scenario: location entered is not within a country (it's a continent!!) (skipping JSON data snippet)*
+::
+
+    $ python temporaryFile.py
+    Enter location: Europe
+    Retrieving https://maps.googleapis.com/maps/api/geocode/json?address=Europe&key=HIDDEN_API_KEY
+    Retrieved 1191 characters
+
+    ===Results===
+    Location: Europe
+    Category of "continent"  
+    No country code available
+
+*Scenario: location entered is the Atlantic Ocean (skipping JSON data snippet)*
+::
+
+    $ python temporaryFile.py
+    Enter location: Atlantic Ocean
+    Retrieving https://maps.googleapis.com/maps/api/geocode/json?address=Atlantic+Ocean&key=HIDDEN_API_KEY
+    Retrieved 1228 characters
+
+    ===Results===
+    Location: Atlantic Ocean   
+    Category of "establishment"
+    No country code available
+
+**Notes:**
+
+Something to point out. In the ``import`` section, there's a ``googleapi`` module. This module is another Python file created by me in the name of ``googleapi.py``. This file's main purposes are to `obscure the API key <https://www.py4e.com/code3/hidden.py>`__ and provide it when called in this program.
 
