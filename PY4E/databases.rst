@@ -59,13 +59,13 @@ The application will:
 
 The program will run the following query and produce a corresponding output:
 
-*Query & output:*
+*Expected query & output*
 
 .. code-block:: sql
 
     SELECT hex(name || age) AS X FROM Ages ORDER BY X
 
-*Hint:*
+*Hint*
 
 .. code-block:: text
 
@@ -163,7 +163,7 @@ Click link to open `mbox.txt <https://www.py4e.com/code3/mbox.txt>`__.
 
 Each version of the program will run and find the domain name of the organization with the highest email count.
 
-*Hint:*
+*Hint*
 
 .. code-block:: text
 
@@ -171,7 +171,7 @@ Each version of the program will run and find the domain name of the organizatio
 
 **My Code:**
 
-**Version 1: limiting string comparison in code**
+*Version 1: limiting string comparison in code*
 ::
 
     # required library and module
@@ -232,7 +232,7 @@ Each version of the program will run and find the domain name of the organizatio
     end = timer()
     print("Time elapsed:", round(end-start, 2), "second(s)")
 
-**Output:**
+*Output of version 1*
 ::
 
     $ python temporaryFile.py 
@@ -243,7 +243,7 @@ Each version of the program will run and find the domain name of the organizatio
     Count: 536
     Time elapsed: 0.38 second(s)
 
-**Version 2: using string comparisons**
+*Version 2: using string comparisons*
 ::
 
     import sqlite3
@@ -295,7 +295,7 @@ Each version of the program will run and find the domain name of the organizatio
     end = timer()
     print("Time elapsed:", round(end-start, 2), "second(s)")
 
-**Output:**
+*Output of version 2*
 ::
 
     $ python temporaryFile.py 
@@ -306,7 +306,7 @@ Each version of the program will run and find the domain name of the organizatio
     Count: 536
     Time elapsed: 0.48 second(s)
 
-**Version 3: using dictionary to handle unique row inserts**
+*Version 3: using dictionary data structure to handle unique row inserts*
 ::
 
     import sqlite3
@@ -354,7 +354,7 @@ Each version of the program will run and find the domain name of the organizatio
     end = timer()
     print("Time elapsed:", round(end-start, 2), "second(s)")
 
-**Output:**
+*Output of version 3*
 ::
 
     $ python temporaryFile.py 
@@ -389,7 +389,7 @@ Click link to download zip file containing `reference code and Library.xml file 
 
 The program will run the following query and retrieve the corresponding output:
 
-*Query & output:*
+*Expected query & output*
 
 .. code-block:: sql
 
@@ -918,7 +918,7 @@ Click link to download `roster_data.json <https://www.py4e.com/tools/sql-intro/r
 
 The program will run the following queries and retrieve corresponding outputs:
 
-*Query & output:*
+*Expected query & output*
 
 .. code-block:: sql
 
@@ -934,7 +934,7 @@ The program will run the following queries and retrieve corresponding outputs:
     Zunaira | si206  | 0
     Zohair  | si363  | 0
 
-*Query & output:*
+*Expected query & output*
 
 .. code-block:: sql
 
@@ -943,7 +943,7 @@ The program will run the following queries and retrieve corresponding outputs:
     ON User.id = Member.user_id AND Member.course_id = Course.id
     ORDER BY X LIMIT 1;
 
-*Hint:*
+*Hint* 
 
 .. code-block:: text
 
